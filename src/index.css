@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Merriweather', serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', sans-serif;
+}
+
+.section-title {
+    font-family: 'Merriweather', sans-serif;
+    font-weight: 700;
+    background-image: url('./assests/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center; /* Position the image to show the orange line */
+}
+
+#top-bar {
+    background-color: white; /* Ensures the top bar is white */
+    z-index: 10; /* Keeps it above the background image */
+}
+
+.main-background {
+    background-image: url('./assests/paw-print.png'), linear-gradient(to bottom, transparent 50%, white 50%);
+    background-repeat: repeat-x, repeat-x;
+    background-size: 50px, 100px 100px; /* Adjust sizes as needed */
+    background-position: top left, top left;
+    background-attachment: fixed;
+}
