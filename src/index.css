@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 body {
     font-family: 'Merriweather', serif;
+    background-color: white; /* Ensure the body has a white background */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,10 +16,11 @@ h1, h2, h3, h4, h5, h6 {
 .section-title {
     font-family: 'Merriweather', sans-serif;
     font-weight: 700;
-    background-image: url('./assests/background.png');
-    background-repeat: no-repeat;
+    /* Remove the background image */
+    /* background-image: url('./assets/background.png'); */
+    /* background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom center; /* Position the image to show the orange line */
+    background-position: bottom center; */
 }
 
 #top-bar {
@@ -25,9 +29,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main-background {
-    background-image: url('./assests/paw-print.png'), linear-gradient(to bottom, transparent 50%, white 50%);
-    background-repeat: repeat-x, repeat-x;
-    background-size: 50px, 100px 100px; /* Adjust sizes as needed */
-    background-position: top left, top left;
+    background-color: white; /* Ensure the main background is white */
+    /* Remove any background images */
+    /* background-image: none; */
+    /* background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top left; */
     background-attachment: fixed;
 }

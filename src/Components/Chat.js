@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
 function Chat() {
-    return (
-        <div className="p-4">
-            <h1 className="text-2xl">24/7 Chat</h1>
-            {/* Chat Content */}
-        </div>
-    );
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl">Chat 24/7</h1>
+      <p>Details about the chat feature.</p>
+    </div>
+  );
 }
 
 export default Chat;

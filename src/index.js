@@ -1,11 +1,13 @@
+// src/index.js or src/App.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'; 
 import App from './App';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme'; // Import your custom theme
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider theme={theme}>
     <App />
-  </React.StrictMode>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
