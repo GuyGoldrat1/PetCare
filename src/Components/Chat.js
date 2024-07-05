@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, Paper, Button } from '@mui/material';
+import { Box, Container, Typography, Paper, Button, IconButton } from '@mui/material';
 import { ChatBubbleOutline as ChatBubbleOutlineIcon } from '@mui/icons-material';
+import ArrowBackImage from '/Users/admin/learning-react/src/assets/arrow (1).png'; 
 
 const initialQuestions = [
   "What are your operating hours?",
@@ -36,6 +37,7 @@ const leadingQuestions = {
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [currentQuestions, setCurrentQuestions] = useState(initialQuestions);
+  const [showBackButton, setShowBackButton] = useState(false);
 
   const handleQuestionClick = (question) => {
     let newMessages = [
@@ -51,16 +53,20 @@ const Chat = () => {
         { text: "Please call our Service Representative at (123) 456-7890 for further assistance.", user: false }
       ];
       setMessages(newMessages);
-      setCurrentQuestions(["Back to initial questions"]);
+      setCurrentQuestions([]);
+      setShowBackButton(true);
     } else if (question === "Back to initial questions") {
       setMessages(newMessages);
       setCurrentQuestions(initialQuestions);
+      setShowBackButton(false);
     } else if (leadingQuestions[question]) {
       setMessages(newMessages);
-      setCurrentQuestions([...leadingQuestions[question], "Back to initial questions"]);
+      setCurrentQuestions([...leadingQuestions[question]]);
+      setShowBackButton(true);
     } else {
       setMessages(newMessages);
-      setCurrentQuestions(["None of these answers helped me, give me to talk with service representative", "Back to initial questions"]);
+      setCurrentQuestions(["None of these answers helped me, give me to talk with service representative"]);
+      setShowBackButton(true);
     }
   };
 
@@ -125,6 +131,22 @@ const Chat = () => {
             </Button>
           ))}
         </Box>
+        {showBackButton && (
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+            <IconButton
+              onClick={() => handleQuestionClick("Back to initial questions")}
+              sx={{
+                width: 56,
+                height: 56,
+                '&:hover': {
+                  backgroundColor: '#ff7961'
+                },
+              }}
+            >
+              <img src={ArrowBackImage} alt="Back to initial questions" style={{ width: '100%', height: '100%' }} />
+            </IconButton>
+          </Box>
+        )}
       </Paper>
     </Container>
   );
