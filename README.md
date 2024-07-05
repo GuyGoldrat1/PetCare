@@ -27,7 +27,7 @@ Our mission is to create a seamless and efficient experience for pet owners, mak
 ## Tech Stack
 
 - **Frontend**: React, Material-UI
-- **Backend**: Node.js (if applicable, otherwise mention relevant backend details)
+- **Backend**: Node.js 
 - **Deployment**: Vercel, Netlify
 
 ## Installation
