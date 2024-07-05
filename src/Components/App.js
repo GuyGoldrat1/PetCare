@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import Layout from './Components/Layout';
+import { AuthProvider } from '../contexts/AuthContext';
+import Layout from './Layout';
 import LandingPage from './LandingPage';
-import MedicalBag from './Components/MedicalBag';
-import VetAppointments from './Components/Appointments';
-import Chat from './Components/Chat';
-import About from './Components/About';
-import Contact from './Components/Contact';
-import SignIn from './Components/SignIn';
+import MedicalBag from './MedicalBag';
+import VetAppointments from './Appointments';
+import Chat from './Chat';
+import About from './About';
+import Contact from './Contact';
+import SignIn from './SignIn';
 
 function App() {
   return (
