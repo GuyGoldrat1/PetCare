@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Grid, Typography, Container, Avatar } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
-import ChaseImage from '/Users/admin/learning-react/src/assests/Untitled design (12).png';
+import ChaseImage from '/Users/admin/learning-react/src/assests/chase-back.png';
 import PetCareLogo from '/Users/admin/learning-react/src/assests/PetCare.png';
 
 const theme = createTheme({
