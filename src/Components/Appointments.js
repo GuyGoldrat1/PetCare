@@ -3,9 +3,8 @@ import { Box, Container, Grid, Typography, Paper, Button, Avatar } from '@mui/ma
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import blackDot from '/Users/admin/learning-react/src/assests/placeholder.png'; 
-import blueDot from '/Users/admin/learning-react/src/assests/placeholder (1).png'; 
-import melsterImage from '/Users/admin/learning-react/src/assests/Melser_Logo_Color.png'; 
+import blackDot from '/Users/admin/learning-react/src/assets/placeholder.png'; 
+import blueDot from '/Users/admin/learning-react/src/assets/placeholder (1).png'; 
 
 // Icons for the markers
 const blackDotIcon = new L.Icon({

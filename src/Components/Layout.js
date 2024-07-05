@@ -9,7 +9,7 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import PetCareLogo from '/Users/admin/learning-react/src/assests/PetCare.png';
+import PetCareLogo from '/Users/admin/learning-react/src/assets/PetCare.png';
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();

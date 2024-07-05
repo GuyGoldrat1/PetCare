@@ -19,9 +19,9 @@ import {
   TimelineContent,
   TimelineDot,
 } from '@mui/lab';
-import medicalBagIcon from '/Users/admin/learning-react/src/assests/medbag.png'; 
-import immunizationHistoryIcon from '/Users/admin/learning-react/src/assests/vaccine.png';
-import medicalHistoryIcon from '/Users/admin/learning-react/src/assests/vetclinic.png';
+import medicalBagIcon from '/Users/admin/learning-react/src/assets/medbag.png'; 
+import immunizationHistoryIcon from '/Users/admin/learning-react/src/assets/vaccine.png';
+import medicalHistoryIcon from '/Users/admin/learning-react/src/assets/vetclinic.png';
 
 const immunizationHistory = [
   { age: "1 year", vaccines: ["Rabies", "Bordatella"], date: "2012" },
