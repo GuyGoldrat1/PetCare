@@ -12,6 +12,7 @@
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.21",
     "axios": "^1.7.2",
+    "firebase": "^10.12.3",
     "leaflet": "^1.9.4",
     "react": "^17.0.2",
     "react-chatbot-kit": "^2.2.2",
