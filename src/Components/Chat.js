@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Container, Typography, Paper, Button, IconButton } from '@mui/material';
 import { ChatBubbleOutline as ChatBubbleOutlineIcon } from '@mui/icons-material';
-import ArrowBackImage from '/Users/admin/learning-react/src/assets/arrow (1).png'; 
+import ArrowBackImage from '../assets/arrow (1).png'; 
 
 const initialQuestions = [
   "What are your operating hours?",

@@ -5,8 +5,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import ChaseImage from '/Users/admin/learning-react/src/assests/chase-white.png';
-import BackgroundImage from '/Users/admin/learning-react/src/assests/back.png';
+import ChaseImage from '../assests/chase-white.png';
+import BackgroundImage from '../assests/back.png';
 
 const drawerWidth = 240;
 
@@ -73,7 +73,7 @@ function DashboardContent() {
   };
 
   const fontStyle = {
-    fontFamily: 'Merriweather, serif',
+    fontFamily: 'Roboto, sans-serif',
     fontSize: '20px',
   };
 

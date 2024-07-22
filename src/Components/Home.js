@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Paper, Avatar } from '@mui/material';
-import ChaseImage from '/Users/admin/learning-react/src/assets/chase-white.png';
+import ChaseImage from '../assets/chase-white.png';
 
 function Home() {
   return (

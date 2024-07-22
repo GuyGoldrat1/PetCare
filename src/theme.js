@@ -11,7 +11,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Merriweather, serif',
+    fontFamily: 'Roboto, sans-serif',
   },
 });
 

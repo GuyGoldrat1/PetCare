@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography, Container, Avatar } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import ChaseImage from '../assets/chase-back.png';
-import PetCareLogo from '/Users/admin/learning-react/src/assets/PetCare.png';
+import PetCareLogo from '../assets/PetCare.png';
 
 const theme = createTheme({
   typography: {
@@ -114,10 +114,10 @@ function LandingPageContent() {
                 <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', boxShadow: 3, borderRadius: 2, width: '120%', wordWrap: 'break-word' }}>
                   <Typography variant="h5" sx={{ fontSize: '1.8rem', fontWeight: 'bold' }}>Owner's Information</Typography>
                   {[
-                    { label: "Name", value: "Elad Kadosh" },
+                    { label: "Name", value: "someone" },
                     { label: "Phone", value: "054-7870214" },
-                    { label: "Email", value: "elad.kadosh3@gmail.com" },
-                    { label: "Address", value: "Hagalil 91, Ganey Tikva" }
+                    { label: "Email", value: "someone@gmail.com" },
+                    { label: "Address", value: "Tel aviv" }
                   ].map(info => (
                     <Box key={info.label} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', mt: 1 }}>
                       <Typography sx={{ fontSize: '1.5rem', fontWeight: 'regular' }}>{info.label}:</Typography>

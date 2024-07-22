@@ -1,7 +1,7 @@
 // src/index.js or src/App.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '/Users/admin/learning-react/src/Components/App.js';
+import App from './Components/App.js';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme'; // Import your custom theme
 

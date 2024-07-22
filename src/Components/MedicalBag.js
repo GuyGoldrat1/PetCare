@@ -19,9 +19,9 @@ import {
   TimelineContent,
   TimelineDot,
 } from '@mui/lab';
-import medicalBagIcon from '/Users/admin/learning-react/src/assets/medbag.png'; 
-import immunizationHistoryIcon from '/Users/admin/learning-react/src/assets/vaccine.png';
-import medicalHistoryIcon from '/Users/admin/learning-react/src/assets/vetclinic.png';
+import medicalBagIcon from '../assets/medbag.png'; 
+import immunizationHistoryIcon from '../assets/vaccine.png';
+import medicalHistoryIcon from '../assets/vetclinic.png';
 
 const immunizationHistory = [
   { age: "1 year", vaccines: ["Rabies", "Bordatella"], date: "2012" },
@@ -62,7 +62,7 @@ const MedicalBag = () => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Avatar src={immunizationHistoryIcon} alt="Immunization History Icon" sx={{ mr: 2, width: 80, height: 80 }} />
               <Typography variant="h5" component="div">
-                Immunization History
+                Vaccination History
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', overflowX: 'auto', mt: 2 }}>

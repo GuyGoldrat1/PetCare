@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Grid, Typography, Card, CardContent, Avatar, Box } from '@mui/material';
-import eladImage from '/Users/admin/learning-react/src/assets/elad.jpeg';
-import noyImage from '/Users/admin/learning-react/src/assets/noy.jpeg';
-import guyImage from '/Users/admin/learning-react/src/assets/guy.jpeg';
-import sagiImage from '/Users/admin/learning-react/src/assets/sagi.jpeg';
+import eladImage from '../assets/elad.jpeg';
+import noyImage from '../assets/noy.jpeg';
+import guyImage from '../assets/guy.jpeg';
+import sagiImage from '../assets/sagi.jpeg';
 
 const founders = [
   { name: 'Elad Kadosh', image: eladImage },

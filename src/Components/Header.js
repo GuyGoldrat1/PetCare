@@ -22,7 +22,7 @@ const Header = () => {
           <Button color="inherit" onClick={() => navigate('/chat')}>Chat 24/7</Button>
           <Button color="inherit" onClick={() => navigate('/about')}>About</Button>
           <Button color="inherit" onClick={() => navigate('/contact')}>Contact</Button>
-          <Typography variant="body1" sx={{ ml: 2 }}>Elad Kadosh</Typography>
+          <Typography variant="body1" sx={{ ml: 2 }}>User</Typography>
           <Button color="inherit" onClick={handleSignOut}>Sign Out</Button>
         </Box>
       </Toolbar>
