@@ -29,7 +29,7 @@ export default function HeroLeft01() {
         alignItems: 'center',
         textAlign: 'center',
         position: 'relative',
-        backgroundColor: '#d2eafa', // Dark blue background color
+        backgroundColor: '#d2eafa', 
         height: '100vh',
         justifyContent: 'center',
         padding: 2,

@@ -155,7 +155,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Find doctor"
-              to="/form"
+              to="/find"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -6,8 +6,7 @@ import Dashboard from "./scenes/dashboard";
 import Medical from "./scenes/medical";
 import Invoices from "./scenes/invoices";
 import Vaccination from "./scenes/vaccinations";
-import Bar from "./scenes/bar";
-import Form from "./scenes/form";
+import Find from "./scenes/find/index.jsx";
 import Line from "./scenes/line/index.jsx";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
@@ -15,8 +14,8 @@ import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
-import SignIn from "./scenes/signin";
-import LandingPage from "./scenes/landingpage";
+import SignIn from "./scenes/landing/index.jsx";
+import LandingPage from "./scenes/signin1/index.jsx";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -41,8 +40,7 @@ function App() {
               <Route path="/medical" element={<Medical />} />
               <Route path="/vaccination" element={<Vaccination />} />
               <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
+              <Route path="/find" element={<Find />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />

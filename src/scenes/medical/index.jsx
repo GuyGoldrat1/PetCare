@@ -1,7 +1,6 @@
 // src/pages/Invoices.jsx
 
 import { Box, Typography, useTheme, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Collapse, IconButton, Paper } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataVisitHistory } from "../../data/mockData";
 import Header from "../../components/Header";
@@ -25,10 +24,10 @@ const Row = (props) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        <TableCell>{row.description}</TableCell>
         <TableCell component="th" scope="row">
           {row.date}
         </TableCell>
-        <TableCell>{row.description}</TableCell>
         <TableCell>{row.veterinarian}</TableCell>
         <TableCell>{row.diagnosis}</TableCell>
       </TableRow>
@@ -73,15 +72,15 @@ const Invoices = () => {
   const columns = [
     { field: "id", headerName: "ID" },
     {
+      field: "description",
+      headerName: "Description",
+      flex: 1,
+    },
+    {
       field: "date",
       headerName: "Date",
       flex: 1,
       cellClassName: "name-column--cell",
-    },
-    {
-      field: "description",
-      headerName: "Description",
-      flex: 1,
     },
     {
       field: "veterinarian",
@@ -99,7 +98,7 @@ const Invoices = () => {
     <Box m="20px">
       <Header title="VISIT HISTORY" subtitle="Dog's Visit History at the Vet" />
       <Box
-        m="40px 0 0 0"
+        m="20px 0 0 0"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -122,9 +121,6 @@ const Invoices = () => {
             borderTop: "none",
             backgroundColor: colors.blueAccent[700],
           },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
         }}
       >
         <TableContainer component={Paper}>
@@ -132,8 +128,8 @@ const Invoices = () => {
             <TableHead>
               <TableRow sx={{ backgroundColor: colors.blueAccent[700] }}>
                 <TableCell />
-                <TableCell>Date</TableCell>
                 <TableCell>Description</TableCell>
+                <TableCell>Date</TableCell>
                 <TableCell>Veterinarian</TableCell>
                 <TableCell>Diagnosis</TableCell>
               </TableRow>
