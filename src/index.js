@@ -1,13 +1,14 @@
-// src/index.js or src/App.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './Components/App.js';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme'; // Import your custom theme
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
-  document.getElementById('root')
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
 );
