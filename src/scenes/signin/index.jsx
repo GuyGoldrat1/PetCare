@@ -1,0 +1,92 @@
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Image from '../../assets/PetCare.png'; // Path to your image
+
+export default function HeroLeft01() {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/home');
+  };
+
+  const handleSignIn = () => {
+    navigate('/signin');
+  };
+
+  return (
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        position: 'relative',
+        backgroundColor: '#d2eafa', // Dark blue background color
+        height: '100vh',
+        justifyContent: 'center',
+        padding: 2,
+      }}
+    >
+      <Typography color="primary" variant="h6" fontWeight="fontWeightBold">
+        The power to do more
+      </Typography>
+      <Typography
+        variant="h2"
+        fontWeight="fontWeightBold"
+        sx={{ fontSize: { xs: '1.875rem', sm: '2.5rem', md: '3rem' }, mt: 2 }}
+      >
+        A large headline about our product features & services
+      </Typography>
+      <Typography variant="h6" color="black" sx={{ mt: 2 }}>
+        A descriptive secondary text placeholder. Use it to explain your business offer better.
+      </Typography>
+      <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
+        <Button
+          variant="contained"
+          size="large"
+          endIcon={<ArrowForward />}
+          onClick={handleGetStarted}
+        >
+          Client login
+        </Button>
+        <Button
+          variant="contained"
+          size="large"
+          endIcon={<ArrowForward />}
+          onClick={handleGetStarted}
+        >
+          Vet Login
+        </Button>
+      </Box>
+      <Box
+        component="img"
+        src={Image}
+        alt="PetCare"
+        sx={{ mt: 4, width: '100%', maxWidth: '200px' }}
+      />
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        Already a member? <Link component="button" onClick={handleSignIn}>Sign in</Link>
+      </Typography>
+      <Typography
+        variant="caption"
+        sx={{
+          position: 'absolute',
+          bottom: '2rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          color: 'white',
+        }}
+      >
+        HeroLeft01
+      </Typography>
+    </Container>
+  );
+}
