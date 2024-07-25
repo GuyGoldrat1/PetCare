@@ -38,7 +38,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isVet }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -115,88 +115,164 @@ const Sidebar = () => {
               </Box>
             </Box>
           )}
+          {!isVet && (
+            <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+              <Item
+                title="Dashboard"
+                to="/home"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to="/home"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                History
+              </Typography>
+              <Item
+                title="Medical Bag"
+                to="/medical"
+                icon={<MedicalServicesIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Vaccinations"
+                to="/vaccination"
+                icon={<VaccinesIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Apointments
+              </Typography>
+              <Item
+                title="Find doctor"
+                to="/find"
+                icon={<PersonOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="New Apointment"
+                to="/calendar"
+                icon={<CalendarTodayOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="FAQ Page"
+                to="/faq"
+                icon={<HelpOutlineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              History
-            </Typography>
-            <Item
-              title="Medical Bag"
-              to="/medical"
-              icon={<MedicalServicesIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Vaccinations"
-              to="/vaccination"
-              icon={<VaccinesIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Apointments
-            </Typography>
-            <Item
-              title="Find doctor"
-              to="/find"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="New Apointment"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Vet Section
+              </Typography>
+              <Item
+                title="New visit"
+                to="/bar"
+                icon={<BarChartOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Update visits"
+                to="/pie"
+                icon={<PieChartOutlineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Box>)}
+          {isVet && (
+            <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+              <Item
+                title="Dashboard"
+                to="/vet/dashboard"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Vet Section
-            </Typography>
-            <Item
-              title="New visit"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Update visits"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          </Box>
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Medical
+              </Typography>
+              <Item
+                title="New Visit"
+                to="/vet/newvisit"
+                icon={<MedicalServicesIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="History"
+                to="/vet/history"
+                icon={<VaccinesIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Apointments
+              </Typography>
+              <Item
+                title="Post Dates"
+                to="/find"
+                icon={<PersonOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Calender"
+                to="/calendar"
+                icon={<CalendarTodayOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                More
+              </Typography>
+                            <Item
+                title="FAQ Page"
+                to="/faq"
+                icon={<HelpOutlineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <Item
+                title="About"
+                to="/bar"
+                icon={<BarChartOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Box>)}
         </Menu>
       </ProSidebar>
     </Box>

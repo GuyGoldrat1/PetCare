@@ -4,22 +4,27 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Medical from "./scenes/medical";
-import Invoices from "./scenes/invoices";
 import Vaccination from "./scenes/vaccinations";
 import Find from "./scenes/find/index.jsx";
 import Line from "./scenes/line/index.jsx";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
 import Geography from "./scenes/geography";
+import Calendar from "./scenes/calendar/calendar";
+import LandingPage from "./scenes/global/landing.jsx";
+import vCalender from "./scenes/vetCalender";
+import vDashboard from "./scenes/vetDashboard";
+import vNewVisit from "./scenes/vetNewVisit";
+import vPostDates from "./scenes/vetPostDates";
+import Invoices from "./scenes/vetVisitHistory/index.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/calendar";
-import SignIn from "./scenes/landing/index.jsx";
-import LandingPage from "./scenes/signin1/index.jsx";
+
+
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
+  const [isVet, setIsVet] = useState(true);
   const location = useLocation();
 
   // Determine if the current route is the sign-in or landing page
@@ -30,12 +35,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {!isSpecialPage && <Sidebar isSidebar={isSidebar} />}
+          {!isSpecialPage && <Sidebar isVet={isVet} />}
           <main className="content">
-            {!isSpecialPage && <Topbar setIsSidebar={setIsSidebar} />}
+            {!isSpecialPage && <Topbar isVet={isVet} />}
             <Routes>
-              <Route path="/" element={<SignIn />} />
-              <Route path="/land" element={<LandingPage />} />
+              <Route path="/" element={<LandingPage setIsVet={ setIsVet } />} />
               <Route path="/home" element={<Dashboard />} />
               <Route path="/medical" element={<Medical />} />
               <Route path="/vaccination" element={<Vaccination />} />
@@ -46,6 +50,11 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/geography" element={<Geography />} />
+              <Route path="/vet/calender" element={<vCalender />} />
+              <Route path="/vet/dashboard" element={<vDashboard />} />
+              <Route path="/vet/newvisit" element={<vNewVisit />} />
+              <Route path="/vet/postdates" element={<vPostDates />} />
+              <Route path="/vet/history" element={<Invoices />} />
             </Routes>
           </main>
         </div>
