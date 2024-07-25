@@ -154,7 +154,7 @@ const Sidebar = ({ isVet }) => {
                 Apointments
               </Typography>
               <Item
-                title="Find doctor"
+                title="Doctors"
                 to="/find"
                 icon={<PersonOutlinedIcon />}
                 selected={selected}
@@ -167,6 +167,14 @@ const Sidebar = ({ isVet }) => {
                 selected={selected}
                 setSelected={setSelected}
               />
+
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                More
+              </Typography>
               <Item
                 title="FAQ Page"
                 to="/faq"
@@ -175,24 +183,10 @@ const Sidebar = ({ isVet }) => {
                 setSelected={setSelected}
               />
 
-              <Typography
-                variant="h6"
-                color={colors.grey[300]}
-                sx={{ m: "15px 0 5px 20px" }}
-              >
-                Vet Section
-              </Typography>
               <Item
-                title="New visit"
+                title="About"
                 to="/bar"
                 icon={<BarChartOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Update visits"
-                to="/pie"
-                icon={<PieChartOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />

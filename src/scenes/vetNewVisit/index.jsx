@@ -1,13 +1,23 @@
-import { Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Box, Button } from "@mui/material";
+import { DataGrid, GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const QuickSearchToolbar = () => (
+  <GridToolbarContainer>
+    <GridToolbarQuickFilter />
+  </GridToolbarContainer>
+);
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const navigate = useNavigate();
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -52,15 +62,27 @@ const Contacts = () => {
     },
   ];
 
+  const handleRowSelection = (selectionModel) => {
+    const selectedId = selectionModel[0];
+    const selectedData = mockDataContacts.find(row => row.id === selectedId);
+    setSelectedRow(selectedData);
+  };
+
+  const handleButtonClick = () => {
+    if (selectedRow) {
+      navigate('/vet/clientrecord', { state: { clientName: selectedRow.name } });
+    }
+  };
+
   return (
-    <Box m="20px">
+    <Box m="15px">
       <Header
         title="CONTACTS"
         subtitle="List of Contacts for Future Reference"
       />
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="0 0 0"
+        height="60vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -69,32 +91,35 @@ const Contacts = () => {
             borderBottom: "none",
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.greenAccent[500],
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.blueAccent[700],
             borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
           },
         }}
       >
         <DataGrid
           rows={mockDataContacts}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          components={{ Toolbar: QuickSearchToolbar }}
+          onSelectionModelChange={handleRowSelection}
         />
+      </Box>
+      <Box m="20px 0" display="flex" justifyContent="right">
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          onClick={handleButtonClick}
+          sx={{
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+        >
+          Select client
+        </Button>
       </Box>
     </Box>
   );

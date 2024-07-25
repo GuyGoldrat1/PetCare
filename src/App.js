@@ -12,11 +12,12 @@ import FAQ from "./scenes/faq";
 import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
 import LandingPage from "./scenes/global/landing.jsx";
-import vCalender from "./scenes/vetCalender";
-import vDashboard from "./scenes/vetDashboard";
-import vNewVisit from "./scenes/vetNewVisit";
-import vPostDates from "./scenes/vetPostDates";
-import Invoices from "./scenes/vetVisitHistory/index.jsx";
+import VCalender from "./scenes/vetCalender";
+import VDashboard from "./scenes/vetDashboard";
+import VNewVisit from "./scenes/vetNewVisit";
+import VRecoreds from "./scenes/vetNewVisit/medrecords.jsx";
+import VPostDates from "./scenes/vetPostDates";
+import VHistory from "./scenes/vetVisitHistory/index.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -43,18 +44,18 @@ function App() {
               <Route path="/home" element={<Dashboard />} />
               <Route path="/medical" element={<Medical />} />
               <Route path="/vaccination" element={<Vaccination />} />
-              <Route path="/invoices" element={<Invoices />} />
               <Route path="/find" element={<Find />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/geography" element={<Geography />} />
-              <Route path="/vet/calender" element={<vCalender />} />
-              <Route path="/vet/dashboard" element={<vDashboard />} />
-              <Route path="/vet/newvisit" element={<vNewVisit />} />
-              <Route path="/vet/postdates" element={<vPostDates />} />
-              <Route path="/vet/history" element={<Invoices />} />
+              <Route path="/vet/calender" element={<VCalender />} />
+              <Route path="/vet/dashboard" element={<VDashboard />} />
+              <Route path="/vet/newvisit" element={<VNewVisit />} />
+              <Route path="/vet/clientrecord" element={<VRecoreds />} />
+              <Route path="/vet/postdates" element={<VPostDates />} />
+              <Route path="/vet/history" element={<VHistory />} />
             </Routes>
           </main>
         </div>
