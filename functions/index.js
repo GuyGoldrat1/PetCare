@@ -24,11 +24,11 @@ initializeApp();
 
 exports.addVaccination = onCall(async (request) => {
     // Checking that the user is authenticated.
-    if (!request.auth) {
-        // Throwing an HttpsError so that the client gets the error details.
-        throw new HttpsError("failed-precondition", "The function must be " +
-                "called while authenticated.");
-    }
+    // if (!request.auth) {
+    //     // Throwing an HttpsError so that the client gets the error details.
+    //     throw new HttpsError("failed-precondition", "The function must be " +
+    //         "called while authenticated.");
+    // }
     const db = getFirestore();
     const vaccine = request.data;
     const writeResult = await db.collection("vaccinations").add(vaccine);
