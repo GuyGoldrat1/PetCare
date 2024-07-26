@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarFooter, SidebarContent, SubMenu } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -151,7 +151,7 @@ const Sidebar = ({ isVet }) => {
                 color={colors.grey[300]}
                 sx={{ m: "15px 0 5px 20px" }}
               >
-                Appointments
+                Apointments
               </Typography>
               <Item
                 title="Doctors"
@@ -161,7 +161,7 @@ const Sidebar = ({ isVet }) => {
                 setSelected={setSelected}
               />
               <Item
-                title="New Appointment"
+                title="New Apointment"
                 to="/calendar"
                 icon={<CalendarTodayOutlinedIcon />}
                 selected={selected}
@@ -190,8 +190,7 @@ const Sidebar = ({ isVet }) => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </Box>
-          )}
+            </Box>)}
           {isVet && (
             <Box paddingLeft={isCollapsed ? undefined : "10%"}>
               <Item
@@ -228,7 +227,7 @@ const Sidebar = ({ isVet }) => {
                 color={colors.grey[300]}
                 sx={{ m: "15px 0 5px 20px" }}
               >
-                Appointments
+                Apointments
               </Typography>
               <Item
                 title="Post Dates"
@@ -238,8 +237,8 @@ const Sidebar = ({ isVet }) => {
                 setSelected={setSelected}
               />
               <Item
-                title="Calendar"
-                to="/vet/calendar"
+                title="Calender"
+                to="/vet/calender"
                 icon={<CalendarTodayOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
@@ -252,7 +251,7 @@ const Sidebar = ({ isVet }) => {
               >
                 More
               </Typography>
-              <Item
+                            <Item
                 title="FAQ Page"
                 to="/faq"
                 icon={<HelpOutlineOutlinedIcon />}
@@ -267,8 +266,7 @@ const Sidebar = ({ isVet }) => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </Box>
-          )}
+            </Box>)}
         </Menu>
       </ProSidebar>
     </Box>
