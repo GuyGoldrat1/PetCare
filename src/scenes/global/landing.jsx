@@ -8,12 +8,19 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Image from '../../assets/PetCare.png'; // Path to your image
 
-export default function HeroLeft01() {
+export default function LandingPage({setIsVet}) {
   const navigate = useNavigate();
 
-  const handleGetStarted = () => {
+  const handleClientLogin = () => {
+    setIsVet(false);
     navigate('/home');
   };
+
+  const handleVetLogin = () => {
+    setIsVet(true);
+    navigate('/home');
+  };
+
 
   const handleSignIn = () => {
     navigate('/signin');
@@ -53,7 +60,7 @@ export default function HeroLeft01() {
           variant="contained"
           size="large"
           endIcon={<ArrowForward />}
-          onClick={handleGetStarted}
+          onClick={handleClientLogin}
         >
           Client login
         </Button>
@@ -61,7 +68,7 @@ export default function HeroLeft01() {
           variant="contained"
           size="large"
           endIcon={<ArrowForward />}
-          onClick={handleGetStarted}
+          onClick={handleVetLogin}
         >
           Vet Login
         </Button>
@@ -74,18 +81,6 @@ export default function HeroLeft01() {
       />
       <Typography variant="body1" sx={{ mt: 2 }}>
         Already a member? <Link component="button" onClick={handleSignIn}>Sign in</Link>
-      </Typography>
-      <Typography
-        variant="caption"
-        sx={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: 'white',
-        }}
-      >
-        HeroLeft01
       </Typography>
     </Container>
   );
