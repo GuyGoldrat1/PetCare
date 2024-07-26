@@ -13,7 +13,12 @@ const Row = (props) => {
 
   return (
     <>
-      <TableRow>
+      <TableRow onClick={() => setOpen(!open)} sx={{
+          "&:hover": {
+            backgroundColor: "#f5f5f5", // Change this to the color you want
+            cursor: "pointer"
+          }
+        }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -112,53 +117,62 @@ const Invoices = () => {
         </Button>
       </Box>
 
-      <Box
-        m="20px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-        }}
-      >
-        <TableContainer component={Paper}>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow sx={{ backgroundColor: colors.blueAccent[700] }}>
-                <TableCell />
-                <TableCell>Description</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Veterinarian</TableCell>
-                <TableCell>Diagnosis</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {mockDataVisitHistory.map((row) => (
-                <Row key={row.id} row={row} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Box m="20px 0 0 0" height="70vh">
+        <Box
+          sx={{
+            height: '100%',
+            overflow: 'auto', // Make the box scrollable
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${colors.grey[100]} !important`,
+            },
+          }}
+        >
+          <TableContainer component={Paper}>
+            <Table aria-label="collapsible table">
+              <TableHead>
+                <TableRow sx={{ backgroundColor: colors.blueAccent[700] }}>
+                  <TableCell />
+                  <TableCell>Description</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Veterinarian</TableCell>
+                  <TableCell>Diagnosis</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {mockDataVisitHistory.map((row) => (
+                  <Row key={row.id} row={row} />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Box>
     </Box>
   );
 };
+
 
 export default Invoices;

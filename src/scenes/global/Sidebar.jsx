@@ -231,14 +231,14 @@ const Sidebar = ({ isVet }) => {
               </Typography>
               <Item
                 title="Post Dates"
-                to="/find"
+                to="/vet/postdates"
                 icon={<PersonOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Calender"
-                to="/calendar"
+                to="/vet/calender"
                 icon={<CalendarTodayOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}

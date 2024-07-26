@@ -104,6 +104,8 @@ const Contacts = () => {
           columns={columns}
           components={{ Toolbar: QuickSearchToolbar }}
           onSelectionModelChange={handleRowSelection}
+          rowDoubleClick={handleButtonClick}
+
         />
       </Box>
       <Box m="20px 0" display="flex" justifyContent="right">

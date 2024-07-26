@@ -12,7 +12,7 @@ const Form = () => {
   };
 
   return (
-    <Box m="20px">
+    <Box m="20px" >
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
 
       <Formik
@@ -36,6 +36,8 @@ const Form = () => {
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
+              width="0.7"
+              ml ="50px"
             >
               <TextField
                 fullWidth
