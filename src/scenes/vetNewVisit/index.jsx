@@ -7,11 +7,18 @@ import { useTheme } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const QuickSearchToolbar = () => (
-  <GridToolbarContainer>
-    <GridToolbarQuickFilter />
-  </GridToolbarContainer>
-);
+function QuickSearchToolbar() {
+  return (
+    <Box
+      sx={{
+        p: 0.5,
+        pb: 0,
+      }}
+    >
+      <GridToolbarQuickFilter />
+    </Box>
+  );
+}
 
 const Contacts = () => {
   const theme = useTheme();
@@ -62,15 +69,14 @@ const Contacts = () => {
     },
   ];
 
-  const handleRowSelection = (selectionModel) => {
-    const selectedId = selectionModel[0];
-    const selectedData = mockDataContacts.find(row => row.id === selectedId);
+  const handleRowSelection = (params) => {
+    const selectedData = params.row.name;
     setSelectedRow(selectedData);
   };
 
   const handleButtonClick = () => {
     if (selectedRow) {
-      navigate('/vet/clientrecord', { state: { clientName: selectedRow.name } });
+      navigate('/vet/clientrecord', { state: { clientName: selectedRow } });
     }
   };
 
@@ -86,24 +92,30 @@ const Contacts = () => {
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
+            
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            
           },
           "& .name-column--cell": {
             color: colors.greenAccent[500],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
             borderBottom: "none",
+            backgroundColor: colors.blueAccent[200],
           },
+          '& .super-app-theme--header': {
+          backgroundColor: 'rgba(255, 7, 0, 0.55)',
+          },
+
         }}
       >
         <DataGrid
           rows={mockDataContacts}
           columns={columns}
-          components={{ Toolbar: QuickSearchToolbar }}
-          onSelectionModelChange={handleRowSelection}
+          slots={{ toolbar: QuickSearchToolbar }}
+          onRowClick={handleRowSelection}
           rowDoubleClick={handleButtonClick}
 
         />

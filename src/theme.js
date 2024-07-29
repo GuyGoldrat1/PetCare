@@ -128,7 +128,7 @@ export const themeSettings = (mode) => {
       mode: mode,
       ...(mode === "dark"
         ? {
-            // palette values for dark mode
+          // palette values for dark mode
             primary: {
               main: colors.primary[500],
             },

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Image from '../../assets/PetCare.png'; // Path to your image
+import Image from '../../assets/DogFunny.jpg'; // Path to your image
 
 export default function LandingPage({setIsVet}) {
   const navigate = useNavigate();
@@ -29,22 +29,30 @@ export default function LandingPage({setIsVet}) {
   return (
     <Container
       component="main"
-      maxWidth="xs"
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-        position: 'relative',
-        backgroundColor: '#d2eafa', 
-        height: '100vh',
-        justifyContent: 'center',
-        padding: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    position: 'relative',
+    backgroundColor: '#d2eafa', 
+    height: '100vh',
+    justifyContent: 'center',
+    padding: 2,
+    width: '50%', // Adjust the width as needed
+    maxWidth: '100px', // Set a maximum width
       }}
     >
       <Typography color="primary" variant="h6" fontWeight="fontWeightBold">
         The power to do more
       </Typography>
+      <Box
+        component="img"
+        src={Image}
+        alt="PetCare"
+        sx={{ mt: 4, width: '300px' }}
+      />
+  
       <Typography
         variant="h2"
         fontWeight="fontWeightBold"
@@ -73,12 +81,6 @@ export default function LandingPage({setIsVet}) {
           Vet Login
         </Button>
       </Box>
-      <Box
-        component="img"
-        src={Image}
-        alt="PetCare"
-        sx={{ mt: 4, width: '100%', maxWidth: '200px' }}
-      />
       <Typography variant="body1" sx={{ mt: 2 }}>
         Already a member? <Link component="button" onClick={handleSignIn}>Sign in</Link>
       </Typography>
