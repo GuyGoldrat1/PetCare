@@ -42,7 +42,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage setIsVet={ setIsVet } />} />
               <Route path="/home" element={<Dashboard />} />
-              <Route path="/medical" element={<Medical />} />
+              <Route path="/medical" element={<Medical mode={theme.palette.mode} />} />
               <Route path="/vaccination" element={<Vaccination />} />
               <Route path="/find" element={<Find />} />
               <Route path="/pie" element={<Pie />} />
