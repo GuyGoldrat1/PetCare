@@ -31,4 +31,7 @@ PetCare is a web application dedicated to providing the best possible care for y
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/PetCare.git
+git init
+git install
 cd PetCare
+git start
