@@ -1,54 +1,34 @@
 # PetCare
 
-PetCare is a comprehensive web application dedicated to ensuring the well-being of your pets. Our platform offers a variety of features to help you manage your pet's health and activities, including tracking medical history and immunization records, booking vet appointments, and accessing 24/7 emergency chat support.
+PetCare is a web application dedicated to providing the best possible care for your pets by connecting you with trusted veterinarians. The platform allows you to manage your pet's medical history, book appointments, and access vital information about your pet's health and wellbeing.
 
-## Our Vision
+## Table of Contents
 
-At PetCare, we are dedicated to ensuring the well-being of your pets through our comprehensive web application. Our platform provides a variety of features to help you manage your pet's health and activities. From tracking medical history and immunization records to booking vet appointments and accessing 24/7 emergency chat support, we aim to cover all aspects of pet care.
-
-Our mission is to create a seamless and efficient experience for pet owners, making it easier to take care of their furry friends. We believe that by providing the right tools and resources, we can help improve the quality of life for both pets and their owners. Join us on our journey to revolutionize pet care, one paw at a time.
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
-- **Home**: Overview of the platform and its features.
-- **Medical Bag**: Track your pet's medical history and immunization records.
-- **Vet Appointments**: Book appointments with veterinarians.
-- **Chat 24/7**: Access emergency chat support with veterinarians.
-- **About**: Learn more about our mission and team.
-- **Contact**: Get in touch with us for any inquiries.
-
-## Team
-
-- **Elad Kadosh**
-- **Noy Agam**
-- **Guy Goldrat**
-- **Sagi Haklay**
-
-## Tech Stack
-
-- **Frontend**: React, Material-UI
-- **Backend**: Node.js 
-- **Deployment**: Vercel, Netlify
+- User Authentication (Sign Up and Login)
+- Role-based access (Pet Owners and Veterinarians)
+- Manage Pet Medical Records
+- Book and Manage Appointments
+- Add and View Recommendations for Veterinarians
+- Light/Dark Mode Toggle
 
 ## Installation
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/PetCare.git
-    ```
+### Prerequisites
 
-2. Navigate to the project directory:
-    ```bash
-    cd PetCare
-    ```
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
 
-3. Install the dependencies:
-    ```bash
-    yarn install
-    ```
+### Clone the Repository
 
-## Running the Project
-
-To start the development server, run:
 ```bash
-yarn start
+git clone https://github.com/YOUR_USERNAME/PetCare.git
+cd PetCare

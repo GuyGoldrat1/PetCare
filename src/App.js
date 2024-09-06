@@ -1,67 +1,49 @@
-import { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard";
-import Medical from "./scenes/medical";
-import Vaccination from "./scenes/vaccinations";
-import Find from "./scenes/find/index.jsx";
-import Line from "./scenes/line/index.jsx";
-import Pie from "./scenes/pie";
-import FAQ from "./scenes/faq";
-import Geography from "./scenes/geography";
-import Calendar from "./scenes/calendar/calendar";
-import LandingPage from "./scenes/global/landing.jsx";
-import VCalender from "./scenes/vetCalender";
-import VDashboard from "./scenes/vetDashboard";
-import VNewVisit from "./scenes/vetNewVisit";
-import VRecoreds from "./scenes/vetNewVisit/medrecords.jsx";
-import VPostDates from "./scenes/vetPostDates";
-import VHistory from "./scenes/vetVisitHistory/index.jsx";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
+import React from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import SignUpPage from './pages/SignUpPage';
+import UserDashboard from './pages/UserDashboard';
+import VetDashboard from './pages/VetDashboard';
+import MedicalBag from './pages/MedicalBag';
+import Appointments from './pages/Appointments';
+import VetAppointments from './pages/VetAppointments';
+import VetPatients from './pages/VetPatients';
+import FAQ from './pages/FAQ';
+import About from './pages/About';
+import Sidebar from './components/Sidebar';
+import TopRightIcons from './components/TopRightIcons';
+import Doctors from './pages/Doctors';
+import Vaccinations from './pages/Vaccinations'; 
+import Login from './pages/LoginPage'; 
 
 
-
-function App() {
-  const [theme, colorMode] = useMode();
-  const [isVet, setIsVet] = useState(true);
+const App = () => {
   const location = useLocation();
-
-  // Determine if the current route is the sign-in or landing page
-  const isSpecialPage = location.pathname === "/" || location.pathname === "/land";
+  const hideMenuPaths = ['/', '/login', '/sign-up'];
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          {!isSpecialPage && <Sidebar isVet={isVet} />}
-          <main className="content">
-            {!isSpecialPage && <Topbar isVet={isVet} />}
+        <div style={{ display: 'flex' }}>
+          {!hideMenuPaths.includes(location.pathname) && <Sidebar />}
+          <div style={{ flexGrow: 1 }}>
+            {!hideMenuPaths.includes(location.pathname) && <TopRightIcons />}
             <Routes>
-              <Route path="/" element={<LandingPage setIsVet={ setIsVet } />} />
-              <Route path="/home" element={<Dashboard />} />
-              <Route path="/medical" element={<Medical mode={theme.palette.mode} />} />
-              <Route path="/vaccination" element={<Vaccination />} />
-              <Route path="/find" element={<Find />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sign-up" element={<SignUpPage />} />
+              <Route path="/user-dashboard" element={<UserDashboard />} />
+              <Route path="/vet-dashboard" element={<VetDashboard />} />
+              <Route path="/medical-bag" element={<MedicalBag />} />
+              <Route path="/appointments" element={<Appointments />} />
+              <Route path="/vet-appointments" element={<VetAppointments />} />
+              <Route path="/vet-patients" element={<VetPatients />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
-              <Route path="/vet/calender" element={<VCalender />} />
-              <Route path="/vet/dashboard" element={<VDashboard />} />
-              <Route path="/vet/newvisit" element={<VNewVisit />} />
-              <Route path="/vet/clientrecord" element={<VRecoreds />} />
-              <Route path="/vet/postdates" element={<VPostDates />} />
-              <Route path="/vet/history" element={<VHistory />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/doctors" element={<Doctors />} />
+              <Route path="/vaccinations" element={<Vaccinations />} /> 
             </Routes>
-          </main>
+          </div>
         </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
   );
-}
+};
 
 export default App;

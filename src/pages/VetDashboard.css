@@ -1,0 +1,12 @@
+/* src/pages/VetDashboard.css */
+.dashboard-container {
+    padding: 20px;
+  }
+  
+  .client-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px; /* Adjust margin if needed */
+  }
+  
