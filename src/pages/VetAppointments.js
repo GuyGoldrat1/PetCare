@@ -40,7 +40,7 @@ const VetAppointments = () => {
 
 
         const appointmentEvents = appointments.map(app => ({
-          title: app.clientId? `Client: ${app.clientId}` : 'Availability',
+          title: app.booked? 'Appointment' : 'Availability',
           start: new Date(`${app.date}T${app.time}`),
           end: new Date(`${app.date}T${app.time}`),
           id: app.id,
@@ -96,18 +96,35 @@ const VetAppointments = () => {
   };
 
   const handleSetSelectedDate = (d) => {
-    setSelectedAppointment({date: d, ...selectedAppointment});
+    const updated = {
+      id: selectedAppointment.id,
+      booked: selectedAppointment.booked,
+      date: d,
+      time: selectedAppointment.time
+    };
+    setSelectedAppointment(updated);
   };
 
   const handleSetSelectedTime = (t) => {
-    setSelectedAppointment({time: t, ...selectedAppointment});
+    const updated = {
+      id: selectedAppointment.id,
+      booked: selectedAppointment.booked,
+      date: selectedAppointment.date,
+      time: t
+    };
+    setSelectedAppointment(updated);
   };
 
   const handleDeleteAppointment = async () => {
     if (selectedAppointment.id) {
       if (selectedAppointment.booked) {
-        const appointmentRef = doc(db, "appointments", selectedAppointment.id);
         try {
+          const q = query(collection(db, "appointments"), 
+            where("date", "==", selectedAppointment.date), 
+            where("time", "==", selectedAppointment.time));
+          const querySnapshot = await getDocs(q);
+          const appointmentId = querySnapshot.docs[0].id;
+          const appointmentRef = doc(db, "appointments", appointmentId);
           await deleteDoc(appointmentRef);
         } catch (error) {
           console.error("Error deleting appointment:", error);
@@ -118,6 +135,18 @@ const VetAppointments = () => {
             booked: false,
             clientId: ''
           });
+          alert("appointment canceled successfully");
+          const updatedEvent = {
+            title: 'Availability',
+            start: new Date(`${selectedAppointment.date}T${selectedAppointment.time}`),
+            end: new Date(`${selectedAppointment.date}T${selectedAppointment.time}`),
+            id: selectedAppointment.id,
+            booked: false,
+            date: selectedAppointment.date, 
+            time: selectedAppointment.time
+          };
+          setEvents(events.filter((event) => event.id !== selectedAppointment.id).concat([updatedEvent]));
+          setSelectedAppointment({});
         } catch (error) {
           console.error("Error deleting appointment:", error);
         }
@@ -125,15 +154,41 @@ const VetAppointments = () => {
         const appointmentRef = doc(db, "availableAppointments", selectedAppointment.id);
         try {
           await deleteDoc(appointmentRef);
+          alert("availability deleted successfully");
+          setEvents(events.filter((event) => event.id !== selectedAppointment.id));
+          setSelectedAppointment({});
         } catch (error) {
           console.error("Error deleting appointment:", error);
         }
       }
-      alert("apppointment deleted successfully");
-      setEvents(events.filter((event) => event.id !== selectedAppointment.id));
-      setSelectedAppointment({});
+      
+      
     } else {
       alert('Please select an appointment');
+    }
+  };
+
+  const handleUpdateAvailability = async () => {
+    const availabilityRef = doc(db, "availableAppointments", selectedAppointment.id);
+    try {
+      await updateDoc(availabilityRef, {
+        date: selectedAppointment.date,
+        time: selectedAppointment.time
+      });
+      alert("Availability updated successfully");
+      //const toUpdate = events.find((event) => event.id === selectedAppointment.id);
+      const updatedEvent = {
+        title: 'Availability',
+        start: new Date(`${selectedAppointment.date}T${selectedAppointment.time}`),
+        end: new Date(`${selectedAppointment.date}T${selectedAppointment.time}`),
+        id: selectedAppointment.id,
+        booked: false,
+        date: selectedAppointment.date, 
+        time: selectedAppointment.time
+      };
+      setEvents(events.filter((event) => event.id !== selectedAppointment.id).concat([updatedEvent]));
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
     }
   };
 
@@ -218,6 +273,7 @@ const VetAppointments = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                disabled={selectedAppointment.booked}
               />
               <TextField
                 variant="outlined"
@@ -231,7 +287,20 @@ const VetAppointments = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                disabled={selectedAppointment.booked}
               />
+              {selectedAppointment.booked? null : (
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={handleUpdateAvailability}
+                  sx={{ mt: 2 }}
+                >
+                  Update Availability
+                </Button>
+              )}
               <Button
                 type="button"
                 fullWidth
