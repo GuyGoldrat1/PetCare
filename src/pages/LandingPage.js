@@ -109,6 +109,18 @@ const LandingPage = () => {
                   >
                     Sign in with Google
                   </GoogleButton>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+                    <GoogleButton
+                      variant="contained"
+                      component={Link}
+                      fullWidth
+                      to={{ pathname: '/login', search: '?role=pet-owner' }}
+                      sx={{ marginBottom: '20px', right: '0', backgroundColor: '#4285F4', color: 'white', '&:hover': { backgroundColor: '#357ae8' } }}
+                    >
+                      Sign In with password
+                    </GoogleButton>
+                    
+                  </Box>
                   <Typography variant="body2" align="center" sx={{ marginBottom: '20px' }}>or</Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
                     <SignUpButton
@@ -130,17 +142,7 @@ const LandingPage = () => {
                     
                   </Box>
                   <Typography variant="body2" align="center" sx={{ marginBottom: '50px' }}>or</Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
-                    <GoogleButton
-                      variant="contained"
-                      component={Link}
-                      to={{ pathname: '/login', search: '?role=pet-owner' }}
-                      sx={{ right: '0', backgroundColor: '#4285F4', color: 'white', '&:hover': { backgroundColor: '#357ae8' } }}
-                    >
-                      Sign Up as Pet Owner
-                    </GoogleButton>
-                    
-                  </Box>
+                  
 
                 </Box>
               </Box>

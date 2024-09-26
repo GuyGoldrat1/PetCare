@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Container, Box, TextField, Button, Typography, Paper } from '@mui/material';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -14,47 +15,110 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await login(email, password);
-        if (currentUser.role === 'vet') {
-          navigate('/vet-dashboard');
-        } else if (currentUser.role === 'pet-owner') {
-          navigate('/user-dashboard');
-        }
+        // if (currentUser.role === 'vet') {
+        //   navigate('/vet-dashboard');
+        // } else if (currentUser.role === 'pet-owner') {
+        //   navigate('/user-dashboard');
+        // }
+        navigate('/');
     } catch (error) {
       setError('Failed to log in. Please check your credentials.');
     }
 
   };
 
+  const handleReturnToLogin = () => {
+    navigate('/');
+  };
+
   return (
-    <div style={styles.container}>
-      <h2 style={styles.header}>Login</h2>
-      {error && <p style={styles.error}>{error}</p>}
-      <form onSubmit={handleLogin} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <button type="submit" style={styles.button}>
-          Login
-        </button>
-      </form>
-    </div>
+    // <div style={styles.container}>
+    //   <h2 style={styles.header}>Login</h2>
+    //   {error && <p style={styles.error}>{error}</p>}
+    //   <form onSubmit={handleLogin} style={styles.form}>
+    //     <div style={styles.inputGroup}>
+    //       <label>Email</label>
+    //       <input
+    //         type="email"
+    //         value={email}
+    //         onChange={(e) => setEmail(e.target.value)}
+    //         required
+    //         style={styles.input}
+    //       />
+    //     </div>
+    //     <div style={styles.inputGroup}>
+    //       <label>Password</label>
+    //       <input
+    //         type="password"
+    //         value={password}
+    //         onChange={(e) => setPassword(e.target.value)}
+    //         required
+    //         style={styles.input}
+    //       />
+    //     </div>
+    //     <button type="submit" style={styles.button}>
+    //       Login
+    //     </button>
+    //   </form>
+    // </div>
+    <Container component="main" maxWidth="xs">
+      <Paper elevation={6} sx={{ padding: 4, marginTop: 8 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography component="h1" variant="h5">
+            Sign In with password
+          </Typography>
+          {error && <p style={styles.error}>{error}</p>}
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleLogin}
+            >
+              Sign In
+            </Button>
+            <Button
+              type="button"
+              fullWidth
+              variant="outlined"
+              sx={{ mb: 2 }}
+              onClick={handleReturnToLogin}
+            >
+              Return to Login
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 
