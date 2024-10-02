@@ -247,7 +247,7 @@ const VetAppointments = () => {
             type="button"
             fullWidth
             variant="contained"
-            color="primary"
+            color="green"
             onClick={handleAddAvailableAppointment}
             sx={{ mt: 2 }}
           >

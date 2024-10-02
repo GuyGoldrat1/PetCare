@@ -6,14 +6,10 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = () => {
-  const theme = useTheme();
   const { currentUser } = useAuth();
   const role = currentUser?.role;
   const [open, setOpen] = useState(true);
 
-  useEffect(() => {
-    localStorage.setItem('themeMode', 'light');
-  }, []);
 
   const handleToggleSidebar = () => {
     setOpen(!open);
@@ -24,11 +20,11 @@ const Sidebar = () => {
       <Collapse in={open} orientation="horizontal" sx={{ height: '100vh', transition: 'width 0.3s', width: open ? 250 : 60 }}>
         <Box sx={{ 
           width: open ? 250 : 60, 
-          bgcolor: theme.palette.mode === 'dark' ? 'black' : 'lightgray', 
           height: '100vh', 
-          position: 'relative' 
+          position: 'fixed',
+          background: 'linear-gradient( #045292,#63b6e3)',
         }}>
-          <IconButton onClick={handleToggleSidebar} sx={{ position: 'absolute', top: 10, right: 10, color: '#55AD9B' }}>
+          <IconButton onClick={handleToggleSidebar} sx={{ position: 'absolute', top: 10, right: 10, color: "primary" }}>
             {open ? <ChevronLeft /> : <Menu />}
           </IconButton>
           <Box sx={{ textAlign: 'center', p: open ? 2 : 1 }}>
@@ -38,7 +34,7 @@ const Sidebar = () => {
               </Typography>
             )}
           </Box>
-          <List>
+          <List sx={{color: 'text.secondary'}}>
             {role === 'pet-owner' ? (
               <>
                 <ListItem button component={Link} to="/user-dashboard">
@@ -47,7 +43,6 @@ const Sidebar = () => {
                   </ListItemIcon>
                   {open && <ListItemText primary="Dashboard" />}
                 </ListItem>
-                <Divider />
                 <ListItem>
                   <Typography variant="h6" color="textSecondary">
                     History
@@ -65,7 +60,6 @@ const Sidebar = () => {
                   </ListItemIcon>
                   {open && <ListItemText primary="Vaccinations" />}
                 </ListItem>
-                <Divider />
                 <ListItem>
                   <Typography variant="h6" color="textSecondary">
                     Appointments
@@ -86,23 +80,19 @@ const Sidebar = () => {
               </>
             ) : (
               <>
-                <ListItem button component={Link} to="/vet-dashboard">
-                  <ListItemIcon sx={{ color: '#55AD9B' }}>
+                <ListItem button component={Link} to="/vet-dashboard" sx={{ justifyContent: 'center' }}>
+                  <ListItemIcon sx={{ color: "primary" }}>
                     <Dashboard />
                   </ListItemIcon>
                   {open && <ListItemText primary="Dashboard" />}
                 </ListItem>
-                <Divider />
                 <ListItem>
-                  <Typography variant="h6" color="textSecondary">
-                    Medical
-                  </Typography>
                 </ListItem>
                 <ListItem button component={Link} to="/vet-appointments">
-                  <ListItemIcon sx={{ color: '#55AD9B' }}>
+                  <ListItemIcon sx={{ color: "secondary" }}>
                     <Event />
                   </ListItemIcon>
-                  {open && <ListItemText primary="Appointments" />}
+                  {open && <ListItemText primary="appointments" />}
                 </ListItem>
                 <ListItem button component={Link} to="/vet-patients">
                   <ListItemIcon sx={{ color: '#55AD9B' }}>
@@ -112,11 +102,7 @@ const Sidebar = () => {
                 </ListItem>
               </>
             )}
-            <Divider />
             <ListItem>
-              <Typography variant="h6" color="textSecondary">
-                More
-              </Typography>
             </ListItem>
             <ListItem button component={Link} to="/faq">
               <ListItemIcon sx={{ color: '#55AD9B' }}>
