@@ -8,7 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ClearIcon from '@mui/icons-material/Clear';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
-const MedicalBag = () => {
+const MedicalHistory = () => {
   const { currentUser } = useAuth();
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [filteredRecords, setFilteredRecords] = useState([]);
@@ -108,4 +108,4 @@ const MedicalBag = () => {
   );
 };
 
-export default MedicalBag;
+export default MedicalHistory;

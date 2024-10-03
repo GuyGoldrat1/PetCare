@@ -113,7 +113,14 @@ const VetDashboard = () => {
             />
                 </Box>
                 </Paper>
+            </Grid>
+                        <Grid item md={6}>
+              <Paper>
+          <Box sx={{ mt:3, padding: 3}}>
+                </Box>
+                </Paper>
           </Grid>
+
         </Grid>
         </Container>
         </Box>

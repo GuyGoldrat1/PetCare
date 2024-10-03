@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth, provider, db, storage } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
+import { setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
+
 
 export const AuthProviderWithNavigate = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);

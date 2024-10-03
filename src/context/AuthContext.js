@@ -1,11 +1,14 @@
   import { createContext, useContext, useEffect, useState } from 'react';
   import { useNavigate } from 'react-router-dom';
   import { auth, provider, db, storage } from '../firebaseConfig';
-  import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
+  import { onAuthStateChanged } from "firebase/auth";
+
   import { doc, setDoc, getDoc, addDoc, collection } from 'firebase/firestore';
   import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
   const AuthContext = createContext();
+
 
   export const useAuth = () => useContext(AuthContext);
 
@@ -13,6 +16,7 @@
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    
 
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -28,6 +32,7 @@
             console.error("Error fetching user document:", error);
           }
         } else {
+          console.error("XXXX");
           setCurrentUser(null);
         }
         setLoading(false);
@@ -35,6 +40,7 @@
 
       return unsubscribe;
     }, []);
+    
 
     const signUp = async (userDetails) => {
       const { email, password, role, name, location, phone, petName, petAge, petBirthDate, petBreed, petGender, petWeight, petColor, petImage, vetImage } = userDetails;

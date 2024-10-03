@@ -77,11 +77,11 @@ const Sidebar = () => {
                     History
                   </Typography>
                 </ListItem>
-                <ListItem button component={Link} to="/medical-bag">
+                <ListItem button component={Link} to="/medical-history">
                   <ListItemIcon sx={{ color: '#55AD9B' }}>
                     <MedicalServices />
                   </ListItemIcon>
-                  {open && <ListItemText primary="Medical Bag" />}
+                  {open && <ListItemText primary="Medical History" />}
                 </ListItem>
                 <ListItem button component={Link} to="/vaccinations">
                   <ListItemIcon sx={{ color: '#55AD9B' }}>
