@@ -19,46 +19,48 @@ const VetAppointments = () => {
   const [events, setEvents] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState({});
 
-  useEffect(() => {
-    const fetchVetDetails = async () => {
-      if (currentUser) {
-        const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setVetLocation(userData.location || '');
-          setVetName(userData.name || '');
-        }
+useEffect(() => {
+  if (!currentUser) return; // Wait for the user to be authenticated
+
+  const fetchVetDetails = async () => {
+    try {
+      const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setVetLocation(userData.location || '');
+        setVetName(userData.name || '');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching vet details:', error);
+    }
+  };
 
-    const fetchAppointments = async () => {
-      if (currentUser) {
-        const q = query(collection(db, 'availableAppointments'), where('vetId', '==', currentUser.uid));
-        const querySnapshot = await getDocs(q);
-        const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const fetchAppointments = async () => {
+    try {
+      const q = query(collection(db, 'availableAppointments'), where('vetId', '==', currentUser.uid));
+      const querySnapshot = await getDocs(q);
+      const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
+      const appointmentEvents = appointments.map(app => ({
+        title: app.booked ? 'Appointment' : 'Availability',
+        start: new Date(`${app.date}T${app.time}`),
+        end: new Date(`${app.date}T${app.time}`),
+        id: app.id,
+        booked: app.booked,
+        date: app.date,
+        time: app.time
+      }));
 
+      setEvents(appointmentEvents);
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    }
+  };
 
-        const appointmentEvents = appointments.map(app => ({
-          title: app.booked? 'Appointment' : 'Availability',
-          start: new Date(`${app.date}T${app.time}`),
-          end: new Date(`${app.date}T${app.time}`),
-          id: app.id,
-          booked: app.booked,
-          date: app.date,
-          time: app.time
-        }));
-
-        //alert(availabilityEvents[0].title);
-        setEvents(appointmentEvents);
-      }
-    };
-
-    fetchVetDetails();
-    fetchAppointments();
-    //setSelectedAppointment({});
-  }, [currentUser]);
-
+  fetchVetDetails();
+  fetchAppointments();
+}, [currentUser]);
+  
   const handleAddAvailableAppointment = async () => {
     if (date && time && vetLocation && vetName) {
       const ref = await addDoc(collection(db, 'availableAppointments'), {

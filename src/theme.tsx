@@ -22,7 +22,7 @@ const theme = createTheme({
       contrastText: "#db4f4a",
     },
     background: {
-      main: '#e2ebfc',
+      default: '#e2ebfc',
     },
     text: {
       primary: '#000000',
@@ -58,7 +58,31 @@ const theme = createTheme({
         fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 20,
       },
+  },
+        components: {
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          fontSize: '16px',  // Change font size
+          fontFamily: ["Source Sans Pro", "sans-serif"],  // Change font family
+        }
+      }
     },
+      MuiPaper: {
+      defaultProps: {
+        // This sets the background color for all Paper components globally
+        elevation: 0, // Optional: set a default elevation
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: '#f9fbff',  // Set your global background color here
+          borderRadius: 10,
+        },
+      },
+    },
+
+  }
+
 
 });
 
