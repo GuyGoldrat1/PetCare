@@ -1,10 +1,10 @@
-// src/pages/Doctors.js
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Card, CardContent, Avatar, Grid, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import { getDocs, collection, query, where, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ChooseDoctor from '../components/ChooseDoctor'; // Import your new DataGrid component
 
 const Doctors = () => {
   const { currentUser } = useAuth();
@@ -54,33 +54,23 @@ const Doctors = () => {
     setRecommendations(recommendations.filter(rec => rec.id !== id));
   };
 
+  const HandleClick = (vet) => {
+    // Add logic to delete the appointment by id from Firestore
+    console.log('Deleting appointment with id:', vet);
+  };
+
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Our Veterinarians
-      </Typography>
-      <Grid container spacing={2}>
-        {vets.map((vet) => (
-          <Grid item xs={12} sm={6} md={4} key={vet.id}>
-            <Card>
-              <CardContent>
-                <Avatar src={vet.vetImageUrl || ''} sx={{ width: 150, height: 150 }} />
-                <Typography variant="h5">{vet.name}</Typography>
-                <Typography variant="body1">{vet.location}</Typography>
-                <Button onClick={() => { setSelectedVet(vet); setOpen(true); }}>Add Recommendation</Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      <Box sx={{ mt: 4 }}>
+    <Box sx={{ p: 3, }}>
+      <ChooseDoctor vets={vets} HandleClick={HandleClick} />
+      
+      <Box sx={{ p: 3}}>
         <Typography variant="h5" gutterBottom>
           Recommendations
-        </Typography>
+      </Typography>
         <Grid container spacing={2}>
           {recommendations.map((rec) => (
-            <Grid item xs={12} key={rec.id}>
-              <Card>
+            <Grid item xs={12} md={12} lg={12} key={rec.id}  >
+              <Card >
                 <CardContent>
                   <Typography variant="body1">
                     <strong>{rec.vetName}:</strong> {rec.recommendation}
@@ -98,7 +88,9 @@ const Doctors = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
+        </Box>
+
+
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Add Recommendation</DialogTitle>
         <DialogContent>

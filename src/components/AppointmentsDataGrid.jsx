@@ -19,7 +19,7 @@ const AppointmentsList = ({ availableAppointments, handleDelete }) => {
               justifyContent: 'space-between',
               alignItems: 'center',
               p: 2,
-              mb: 2,
+              mb: 2,  
                     bgcolor: 'green.main',
                 
             }}
