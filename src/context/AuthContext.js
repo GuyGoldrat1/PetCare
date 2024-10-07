@@ -7,12 +7,14 @@
 
   const AuthContext = createContext();
 
+
   export const useAuth = () => useContext(AuthContext);
 
   export const AuthProviderWithNavigate = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    
 
     setPersistence(auth, browserLocalPersistence);
 
@@ -30,6 +32,7 @@
             console.error("Error fetching user document:", error);
           }
         } else {
+          console.error("XXXX");
           setCurrentUser(null);
         }
         setLoading(false);
@@ -37,6 +40,7 @@
 
       return unsubscribe;
     }, []);
+    
 
     const signUp = async (userDetails) => {
       const { email, password, role, name, location, phone, petName, petAge, petBirthDate, petBreed, petGender, petWeight, petColor, petImage, vetImage } = userDetails;

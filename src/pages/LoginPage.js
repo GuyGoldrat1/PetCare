@@ -32,35 +32,6 @@ const LoginPage = () => {
   };
 
   return (
-    // <div style={styles.container}>
-    //   <h2 style={styles.header}>Login</h2>
-    //   {error && <p style={styles.error}>{error}</p>}
-    //   <form onSubmit={handleLogin} style={styles.form}>
-    //     <div style={styles.inputGroup}>
-    //       <label>Email</label>
-    //       <input
-    //         type="email"
-    //         value={email}
-    //         onChange={(e) => setEmail(e.target.value)}
-    //         required
-    //         style={styles.input}
-    //       />
-    //     </div>
-    //     <div style={styles.inputGroup}>
-    //       <label>Password</label>
-    //       <input
-    //         type="password"
-    //         value={password}
-    //         onChange={(e) => setPassword(e.target.value)}
-    //         required
-    //         style={styles.input}
-    //       />
-    //     </div>
-    //     <button type="submit" style={styles.button}>
-    //       Login
-    //     </button>
-    //   </form>
-    // </div>
     <Container component="main" maxWidth="xs">
       <Paper elevation={6} sx={{ padding: 4, marginTop: 8 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

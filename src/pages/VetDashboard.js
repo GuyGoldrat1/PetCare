@@ -54,7 +54,7 @@ const VetDashboard = () => {
     <Box sx={{ display: 'flex' }}>
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        sx={{ flexGrow: 1, bgcolor: 'background.default',  }}
       >
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h3" gutterBottom sx={{ color: 'primary', fontWeight: 'bold' }}>
@@ -63,8 +63,9 @@ const VetDashboard = () => {
         </Toolbar>
         <Container>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <Paper sx={{ padding: 2, display: 'flex', alignItems: 'center' }}>
+            {/*Vet info */}
+            <Grid item md={6}>
+              <Paper sx={{ height: 150 ,padding: 1, display: 'flex', alignItems: 'center' }}>
                 <Avatar src={vetInfo.vetImageUrl || ''} sx={{ width: 56, height: 56, marginRight: 2 }} />
                 <div>
                   <Typography variant="h6" gutterBottom>
@@ -81,9 +82,10 @@ const VetDashboard = () => {
                   </Typography>
                 </div>
               </Paper>
-            </Grid>
-            <Grid item xs={12} md={6} lg={5}>
-              <Paper sx={{ padding: 3, display: 'flex', alignItems: 'center' }}>
+              </Grid>
+            {/*Next Apointment */}
+            <Grid item md={6}>
+              <Paper sx={{ height: 150 ,padding: 3, display: 'flex', alignItems: 'center' }}>
                 <ScheduleIcon sx={{ fontSize: 40, marginRight: 2 }} />
                 <div>
                   <Typography variant="h6" gutterBottom>
@@ -98,19 +100,31 @@ const VetDashboard = () => {
                   )}
                 </div>
               </Paper>
-            </Grid>
-          </Grid>
-          <Box sx={{ mt: 3 }}>
+              </Grid>
+            <Grid item md={6}>
+              <Paper>
+          <Box sx={{ mt:3, padding: 3}}>
             <Calendar
               localizer={localizer}
               events={events}
               startAccessor="start"
               endAccessor="end"
-              style={{ height: 500 }}
+              style={{ height: 250 }}
             />
-          </Box>
+                </Box>
+                </Paper>
+            </Grid>
+                        <Grid item md={6}>
+              <Paper>
+          <Box sx={{ mt:3, padding: 3}}>
+                </Box>
+                </Paper>
+          </Grid>
+
+        </Grid>
         </Container>
-      </Box>
+        </Box>
+
     </Box>
   );
 };

@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 import { Box, IconButton, Menu, MenuItem, Tooltip, Avatar, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import { Notifications, Settings, LightMode, DarkMode, Logout } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
-import { useThemeContext } from '../context/ThemeContext';
 import './TopRightIcons.css'; // Import the CSS file
 
 const TopRightIcons = () => {
   const { logout, currentUser } = useAuth();
-  const { darkMode, toggleDarkMode } = useThemeContext();
   const [anchorEl, setAnchorEl] = useState(null);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -39,9 +37,6 @@ const TopRightIcons = () => {
 
   return (
     <Box className="top-right-icons">
-      <IconButton color="inherit" onClick={toggleDarkMode}>
-        {darkMode ? <DarkMode /> : <LightMode />}
-      </IconButton>
       <IconButton color="inherit" onClick={handleNotificationsOpen}>
         <Notifications />
       </IconButton>

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProviderWithNavigate } from './context/AuthContext';
-import { ThemeContextProvider } from './context/ThemeContext';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "./theme.tsx";
+
 
 const initializeGoogleAPI = () => {
   try {
@@ -27,13 +29,14 @@ const Root = () => {
   }, []);
 
   return (
-    <ThemeContextProvider>
+    <ThemeProvider theme={theme}>
+            <CssBaseline />
       <Router>
         <AuthProviderWithNavigate>
           <App />
         </AuthProviderWithNavigate>
       </Router>
-    </ThemeContextProvider>
+    </ThemeProvider>
   );
 };
 

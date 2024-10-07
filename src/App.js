@@ -4,7 +4,7 @@ import LandingPage from './pages/LandingPage';
 import SignUpPage from './pages/SignUpPage';
 import UserDashboard from './pages/UserDashboard';
 import VetDashboard from './pages/VetDashboard';
-import MedicalBag from './pages/MedicalBag';
+import MedicalHistory from './pages/MedicalHistory';
 import Appointments from './pages/Appointments';
 import VetAppointments from './pages/VetAppointments';
 import VetPatients from './pages/VetPatients';
@@ -32,7 +32,7 @@ const App = () => {
               <Route path="/sign-up" element={<SignUpPage />} />
               <Route path="/user-dashboard" element={<UserDashboard />} />
               <Route path="/vet-dashboard" element={<VetDashboard />} />
-              <Route path="/medical-bag" element={<MedicalBag />} />
+              <Route path="/medical-history" element={<MedicalHistory />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/vet-appointments" element={<VetAppointments />} />
               <Route path="/vet-patients" element={<VetPatients />} />

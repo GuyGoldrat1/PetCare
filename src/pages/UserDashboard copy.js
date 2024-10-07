@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Avatar, Grid, Paper, Snackbar } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
-import { doc, getDoc, collection, query, where, getDocs  } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import PetsIcon from '@mui/icons-material/Pets';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -16,8 +16,6 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './UserDashboard.css';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent, TimelineOppositeContent } from '@mui/lab';
-import AppointmentsDataGrid from '../components/AppointmentsDataGrid'; // Import your new DataGrid component
-
 
 
 const localizer = momentLocalizer(moment);
@@ -37,7 +35,7 @@ L.Icon.Default.mergeOptions({
 const UserDashboard = () => {
   const { currentUser } = useAuth();
   const [petInfo, setPetInfo] = useState({});
-  const [availableAppointments, setAvailableAppointments] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [vaccinations, setVaccinations] = useState([]);
   const [nextAppointment, setNextAppointment] = useState(null);
@@ -58,24 +56,28 @@ const UserDashboard = () => {
       }
     };
 
-    const fetchAvailableAppointments = async () => {
-      const today = new Date().toISOString().split('T')[0];
-      console.error("today", today);
-      try {
-        const q = query(collection(db, 'availableAppointments'),
-          where('clientId', '==', currentUser.uid)
-        );
-        const querySnapshot = await getDocs(q);
-        const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        if (appointments.length > 0) {
-          const sortedAppointments = appointments.sort(
-            (a, b) => new Date(a.date) - new Date(b.date)
+    const fetchAppointments = async () => {
+      if (currentUser) {
+        const today = new Date().toISOString().split('T')[0];
+        try {
+          const q = query(
+            collection(db, 'appointments'),
+            where('clientId', '==', currentUser.uid),
+            where('date', '>=', today)
           );
-                setAvailableAppointments(sortedAppointments);
-
+          const querySnapshot = await getDocs(q);
+          const appointmentsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setAppointments(appointmentsList);
+          if (appointmentsList.length > 0) {
+            const sortedAppointments = appointmentsList.sort(
+              (a, b) => new Date(a.date) - new Date(b.date)
+            );
+            setNextAppointment(sortedAppointments[0]);
+            setOpen(true);
+          }
+        } catch (error) {
+          console.error('Error fetching appointments:', error);
         }
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
       }
     };
 
@@ -118,7 +120,7 @@ const UserDashboard = () => {
     };
 
     fetchPetInfo();
-    fetchAvailableAppointments();
+    fetchAppointments();
     fetchMedicalRecords();
     fetchVaccinations();
     fetchLocation();
@@ -130,20 +132,6 @@ const UserDashboard = () => {
     }
     setOpen(false);
   };
-    const handleDelete = (id) => {
-    // Add logic to delete the appointment by id from Firestore
-    console.log('Deleting appointment with id:', id);
-  };
-
-    const events = availableAppointments.map(appointment => ({
-    title: `${appointment.vetName} 
-    at: ${appointment.time}`,
-    start: new Date(`${appointment.date}T${appointment.time}`),
-    end: new Date(`${appointment.date}T${appointment.time}`),
-    id: appointment.id,
-    })
-    
-    );
 
   return (
     <Box sx={{ p: 3 }}>
@@ -156,6 +144,18 @@ const UserDashboard = () => {
         Welcome to your Dashboard!
       </Typography>
       <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid item xs={12} md={4}>
+          <Paper variant="outlined" sx={{borderRadius: `15px`,p: 2, textAlign: 'center', bgcolor: 'cream', color: 'primary' }}>
+            <Avatar
+              src={petInfo.petImageUrl || 'default-pet-image.jpg'}
+              alt="Pet"
+              sx={{ width: 200, height: 200, mb: 2, mx: 'auto' }}
+            />
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+              {petInfo.petName || 'Unknown'}
+            </Typography>
+          </Paper>
+        </Grid>
         <Grid item xs={12} md={4}>
           <Paper elevation={3} sx={{ p: 2, bgcolor: 'cream', color: 'primary',borderRadius: '20px' }}>
             <PetsIcon sx={{ fontSize: 40, mb: 2, color: 'tertiary.main' }} />
@@ -182,12 +182,21 @@ const UserDashboard = () => {
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper  sx={{ overflowY: 'auto', p: 2, height: 300, bgcolor: 'cream', color: 'primary' }}>
-            <AppointmentsDataGrid
-              availableAppointments={availableAppointments}
-              handleDelete={handleDelete}
-            />
+        <Grid item xs={12} md={4}>
+          <Paper elevation={3} sx={{ p: 2, height: '100%', bgcolor: 'cream', color: 'primary' }}>
+            <CalendarTodayIcon sx={{ fontSize: 40, mb: 3, color: 'tertiary.main' }} />
+            <Typography variant="h5" gutterBottom>
+              Future Appointments
+            </Typography>
+            {appointments.length > 0 ? (
+              appointments.map((appointment) => (
+                <Typography key={appointment.id} variant="body1">
+                  {`Date: ${appointment.date}, Time: ${appointment.time}, Vet: ${appointment.vetName}`}
+                </Typography>
+              ))
+            ) : (
+              <Typography variant="body1">No upcoming appointments</Typography>
+            )}
           </Paper>
         </Grid>
       </Grid>
@@ -293,7 +302,11 @@ const UserDashboard = () => {
             </Typography>
             <Calendar
               localizer={localizer}
-              events={events}
+              events={appointments.map(appointment => ({
+                title: `Vet: ${appointment.vetName}`,
+                start: new Date(`${appointment.date}T${appointment.time}`),
+                end: new Date(`${appointment.date}T${appointment.time}`)
+              }))}
               startAccessor="start"
               endAccessor="end"
               style={{ height: 500 }}
