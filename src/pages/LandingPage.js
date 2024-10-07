@@ -44,7 +44,7 @@ const SignUpButton = styled(Button)({
 
 const clearSiteData = () => {
   // Clear localStorage
-  localStorage.clear();
+  //localStorage.clear();
 
   // Clear sessionStorage
   sessionStorage.clear();
