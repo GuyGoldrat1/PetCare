@@ -3,7 +3,7 @@ import { Box, Typography, Grid, Card, CardContent, Avatar, Button, TextField, Di
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useAuth } from '../context/AuthContext';
-import { getDocs, collection, query, where, addDoc } from 'firebase/firestore';
+import { getDoc, doc,getDocs, collection, query, where, addDoc } from 'firebase/firestore';
 import { db, storage } from '../firebaseConfig';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -19,8 +19,20 @@ const VetPatients = () => {
   const [date, setDate] = useState(new Date());
   const [searchQuery, setSearchQuery] = useState('');
   const [pdfFile, setPdfFile] = useState(null);
+  const [vetInfo, setVetInfo] = useState({});
+
 
   useEffect(() => {
+        const fetchVetInfo = async () => {
+          if (currentUser) {
+            const vetDoc = await getDoc(doc(db, "users", currentUser.uid));
+            if (vetDoc.exists()) {
+              setVetInfo(vetDoc.data());
+            }
+          }
+        };
+
+
     const fetchPatients = async () => {
       if (currentUser) {
         const q = query(collection(db, 'users'), where('role', '==', 'pet-owner'));
@@ -30,7 +42,8 @@ const VetPatients = () => {
         setFilteredPatients(users);
       }
     };
-
+    
+    fetchVetInfo();
     fetchPatients();
   }, [currentUser]);
 
@@ -55,13 +68,13 @@ const VetPatients = () => {
         pdfUrl = await getDownloadURL(storageRef);
       }
 
-      await addDoc(collection(db, 'medicalRecords'), {
+      await addDoc(collection(db, "medicalRecords"), {
         clientId: selectedPatient.id,
         vetId: currentUser.uid,
-        vetName: currentUser.displayName || 'Unknown Vet',
+        vetName: currentUser.displayName || vetInfo.name,
         summary,
         treatmentType,
-        date: date.toISOString().split('T')[0],
+        date: date.toISOString().split("T")[0],
         pdfUrl,
       });
 

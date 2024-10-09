@@ -1,6 +1,6 @@
 // src/pages/Appointments.js
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, MenuItem, Select, InputLabel, FormControl, Paper } from '@mui/material';
+import { Box, Typography,Grid, Button, MenuItem, Select, InputLabel, FormControl, Paper } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useAuth } from '../context/AuthContext';
@@ -10,15 +10,25 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import ChooseDoctor from '../components/ChooseDoctor'; // Import your new DataGrid component
+
 
 const localizer = momentLocalizer(moment);
 
 const Appointments = () => {
   const { currentUser } = useAuth();
+  const [vets, setVets] = useState([]);
   const [availableAppointments, setAvailableAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState('');
 
   useEffect(() => {
+      const fetchVets = async () => {
+      const q = query(collection(db, 'users'), where('role', '==', 'vet'));
+      const querySnapshot = await getDocs(q);
+      const vetsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setVets(vetsList);
+    };
+
     const fetchAvailableAppointments = async () => {
       try {
         const q = query(collection(db, 'availableAppointments'), where('booked', '==', false));
@@ -31,6 +41,7 @@ const Appointments = () => {
     };
 
     fetchAvailableAppointments();
+    fetchVets();
   }, []);
 
   const handleBookAppointment = async () => {
@@ -71,6 +82,11 @@ const Appointments = () => {
       alert('Please select an appointment');
     }
   };
+    const HandleClick = (vet) => {
+    // Add logic to delete the appointment by id from Firestore
+    console.log('Deleting appointment with id:', vet);
+  };
+
 
   const events = availableAppointments.map(appointment => ({
     title: `${appointment.vetName} 
@@ -86,7 +102,15 @@ const Appointments = () => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Box sx={{ p: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={12}>
+            <ChooseDoctor vets={vets} HandleClick={HandleClick} />
+        </Grid>
+
+        
+        <Grid item xs={12} md={6}>
+        <Paper sx={{ ml:4, padding:3 }}>
+
         <Typography variant="h4" gutterBottom>
           Book Appointment
         </Typography>
@@ -118,10 +142,13 @@ const Appointments = () => {
           sx={{ mt: 2 }}
         >
           Book Appointment
-        </Button>
-        <Box sx={{ mt: 4 }}>
-          <Paper elevation={3} sx={{ p: 2 }}>
-            <CalendarTodayIcon sx={{ fontSize: 40, mb: 1 }} />
+            </Button>
+                  </Paper>
+
+        </Grid>
+      
+        <Grid item xs={12} md={6} >
+          <Paper  sx={{mr: 4, padding:3  }}>
             <Typography variant="h5" gutterBottom>
               Available Appointments Calendar
             </Typography>
@@ -130,12 +157,12 @@ const Appointments = () => {
               events={events}
               startAccessor="start"
               endAccessor="end"
-              style={{ height: 500 }}
+              style={{ height: 400 }}
               onSelectEvent={handleSelectEvent}
             />
           </Paper>
-        </Box>
-      </Box>
+          </Grid>
+        </Grid>
     </LocalizationProvider>
   );
 };

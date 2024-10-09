@@ -5,36 +5,26 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 const AppointmentsList = ({ availableAppointments, handleDelete }) => {
   return (
-    <Box sx={{ height: 300, p: 2}}>
-      <Typography variant="h3" gutterBottom>
-        Upcoming Events
-      </Typography>
-
+    <Box sx={{ height: 200 }}>
       {availableAppointments.length > 0 ? (
         availableAppointments.map((appointment) => (
           <Paper
             key={appointment.id}
-                sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               p: 2,
-              mb: 2,  
-                    bgcolor: 'green.main',
-                
+              mb: 2,
+              bgcolor: "secondary.main",
+              color: "secondary.contrastText",
             }}
           >
-                <Box >
-                <Typography variant="h4">
-                {appointment.vetName}
-              </Typography>
+            <Box>
+              <Typography variant="h4">{appointment.vetName}</Typography>
 
-              <Typography variant="body1">
-                 {appointment.date}
-              </Typography>
-              <Typography variant="body1">
-                 {appointment.time}
-              </Typography>
+              <Typography variant="body1">{appointment.date}</Typography>
+              <Typography variant="body1">{appointment.time}</Typography>
             </Box>
             <IconButton
               aria-label="delete"

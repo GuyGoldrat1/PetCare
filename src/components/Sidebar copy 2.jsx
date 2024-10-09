@@ -7,6 +7,7 @@ import {
   Avatar,
   Box,
   Typography,
+  IconButton,
 } from "@mui/material";
 import {
   Dashboard,
@@ -69,35 +70,45 @@ const Sidebar = () => {
         </Box>
 
         {/* Sidebar menu */}
-        <List sx={{ color: "background.paper", ml: 3 }}>
+        <List sx={{ color: "text.secondary", ml: 3 }}>
           {role === "pet-owner" ? (
             <>
               <ListItem button component={Link} to="/user-dashboard">
-                <ListItemIcon sx={{ color: "background.paper" }}>
+                <ListItemIcon sx={{ color: "#55AD9B" }}>
                   <Dashboard />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
+              <ListItem>
+                <Typography variant="h6" color="textSecondary">
+                  History
+                </Typography>
+              </ListItem>
               <ListItem button component={Link} to="/medical-history">
-                <ListItemIcon sx={{ color: "background.paper" }}>
+                <ListItemIcon sx={{ color: "#55AD9B" }}>
                   <MedicalServices />
                 </ListItemIcon>
                 <ListItemText primary="Medical History" />
               </ListItem>
               <ListItem button component={Link} to="/vaccinations">
-                <ListItemIcon sx={{ color: "background.paper" }}>
+                <ListItemIcon sx={{ color: "#55AD9B" }}>
                   <Vaccines />
                 </ListItemIcon>
                 <ListItemText primary="Vaccinations" />
               </ListItem>
+              <ListItem>
+                <Typography variant="h6" color="textSecondary">
+                  Appointments
+                </Typography>
+              </ListItem>
               <ListItem button component={Link} to="/doctors">
-                <ListItemIcon sx={{ color: "background.paper" }}>
+                <ListItemIcon sx={{ color: "#55AD9B" }}>
                   <AccountCircle />
                 </ListItemIcon>
-                <ListItemText sx={{ fontWeight: "bold" }} primary="Doctors" />
+                <ListItemText primary="Doctors" />
               </ListItem>
               <ListItem button component={Link} to="/appointments">
-                <ListItemIcon sx={{ color: "background.paper" }}>
+                <ListItemIcon sx={{ color: "#55AD9B" }}>
                   <Event />
                 </ListItemIcon>
                 <ListItemText primary="New Appointment" />
@@ -126,13 +137,13 @@ const Sidebar = () => {
             </>
           )}
           <ListItem button component={Link} to="/faq">
-            <ListItemIcon sx={{ color: "background.paper" }}>
+            <ListItemIcon sx={{ color: "text.secondary" }}>
               <Help />
             </ListItemIcon>
             <ListItemText primary="FAQ Page" />
           </ListItem>
           <ListItem button component={Link} to="/about">
-            <ListItemIcon sx={{ color: "background.paper" }}>
+            <ListItemIcon sx={{ color: "text.secondary" }}>
               <Info />
             </ListItemIcon>
             <ListItemText primary="About" />

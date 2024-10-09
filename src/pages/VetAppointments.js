@@ -249,7 +249,6 @@ useEffect(() => {
             type="button"
             fullWidth
             variant="contained"
-            color="green"
             onClick={handleAddAvailableAppointment}
             sx={{ mt: 2 }}
           >
@@ -296,7 +295,6 @@ useEffect(() => {
                   type="button"
                   fullWidth
                   variant="contained"
-                  color="primary"
                   onClick={handleUpdateAvailability}
                   sx={{ mt: 2 }}
                 >
@@ -307,7 +305,6 @@ useEffect(() => {
                 type="button"
                 fullWidth
                 variant="contained"
-                color="primary"
                 onClick={handleDeleteAppointment}
                 sx={{ mt: 2 }}
               >

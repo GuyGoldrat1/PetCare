@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Avatar, Grid, Paper, Snackbar } from '@mui/material';
+import { Box, Typography, Avatar, Grid, Paper, Snackbar, Button } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, collection, query, where, getDocs  } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -147,60 +147,88 @@ const UserDashboard = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography 
-        variant="h3" 
+      <Typography variant="h3">DASHBOARD</Typography>
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{ color: "black", fontWeight: "bold" }}
       >
-        DASHBOARD
-      </Typography>
-      <Typography variant="h6" gutterBottom sx={{ color: 'black', fontWeight: 'bold' }}>
         Welcome to your Dashboard!
       </Typography>
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={12} md={4}>
-          <Paper elevation={3} sx={{ p: 2, bgcolor: 'cream', color: 'primary',borderRadius: '20px' }}>
-            <PetsIcon sx={{ fontSize: 40, mb: 2, color: 'tertiary.main' }} />
+          <Paper
+            elevation={3}
+            sx={{
+              p: 2,
+              bgcolor: "cream",
+              color: "primary",
+              borderRadius: "20px",
+            }}
+          >
+            <PetsIcon sx={{ fontSize: 40, mb: 2, color: "tertiary.main" }} />
             <Typography variant="h5" gutterBottom>
               Pet Info
             </Typography>
             <Typography variant="body1">
-              <strong>Age:</strong> {petInfo.petAge || 'Unknown'}
+              <strong>Age:</strong> {petInfo.petAge || "Unknown"}
             </Typography>
             <Typography variant="body1">
-              <strong>Birth Date:</strong> {petInfo.petBirthDate || 'Unknown'}
+              <strong>Birth Date:</strong> {petInfo.petBirthDate || "Unknown"}
             </Typography>
             <Typography variant="body1">
-              <strong>Breed:</strong> {petInfo.petBreed || 'Unknown'}
+              <strong>Breed:</strong> {petInfo.petBreed || "Unknown"}
             </Typography>
             <Typography variant="body1">
-              <strong>Gender:</strong> {petInfo.petGender || 'Unknown'}
+              <strong>Gender:</strong> {petInfo.petGender || "Unknown"}
             </Typography>
             <Typography variant="body1">
-              <strong>Weight:</strong> {petInfo.petWeight || 'Unknown'}
+              <strong>Weight:</strong> {petInfo.petWeight || "Unknown"}
             </Typography>
             <Typography variant="body1">
-              <strong>Color:</strong> {petInfo.petColor || 'Unknown'}
+              <strong>Color:</strong> {petInfo.petColor || "Unknown"}
             </Typography>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper  sx={{ overflowY: 'auto', p: 2, height: 300, bgcolor: 'cream', color: 'primary' }}>
-            <AppointmentsDataGrid
-              availableAppointments={availableAppointments}
-              handleDelete={handleDelete}
-            />
+        <Grid item xs={12} md={4}>
+          <Paper sx={{ p: 2 }}>
+            <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+              Upcoming Events
+            </Typography>
+
+            <Paper sx={{ overflowY: "auto", p: 2,mt:2 }}>
+              <AppointmentsDataGrid
+                availableAppointments={availableAppointments}
+                handleDelete={handleDelete}
+              />
+            </Paper>
           </Paper>
         </Grid>
       </Grid>
       <Grid container spacing={2} sx={{ mt: 4 }}>
         <Grid item xs={12} md={5}>
-          <Paper elevation={3} sx={{ p: 2, bgcolor: 'cream', color: 'primary' }}>
-            <MedicalServicesIcon sx={{ fontSize: 40, mb: 1, color: 'tertiary.main' }} />
+          <Paper
+            elevation={3}
+            sx={{ p: 2, bgcolor: "cream", color: "primary" }}
+          >
+            <MedicalServicesIcon
+              sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
+            />
             <Typography variant="h5" gutterBottom>
               Medical Bag
             </Typography>
             <Carousel>
               {medicalRecords.map((record) => (
-                <Paper key={record.id} elevation={2} sx={{ p: 2, margin: '0 10px', bgcolor: 'cream', color: 'primary' }}>
+                <Paper
+                  key={record.id}
+                  elevation={2}
+                  sx={{
+                    p: 2,
+                    margin: "0 10px",
+                    bgcolor: "cream",
+                    color: "primary",
+                  }}
+                >
                   <Typography variant="body1">
                     <strong>Summary:</strong> {record.summary}
                   </Typography>
@@ -214,42 +242,59 @@ const UserDashboard = () => {
               ))}
             </Carousel>
           </Paper>
-          <Paper elevation={3} sx={{ p: 2, mt: 2, textAlign: 'center', bgcolor: 'cream', color: 'primary' }}>
+          <Paper
+            elevation={3}
+            sx={{
+              p: 2,
+              mt: 2,
+              textAlign: "center",
+              bgcolor: "cream",
+              color: "primary",
+            }}
+          >
             <Typography variant="h5">Age</Typography>
             <Box
               sx={{
                 width: 100,
                 height: 100,
-                borderRadius: '50%',
-                border: '5px solid',
-                borderColor: 'primary.main',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mx: 'auto',
+                borderRadius: "50%",
+                border: "5px solid",
+                borderColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mx: "auto",
                 mt: 1,
               }}
             >
-              <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'primary' }}>
-                {petInfo.petAge || 'Unknown'}
+              <Typography
+                variant="h3"
+                sx={{ fontWeight: "bold", color: "primary" }}
+              >
+                {petInfo.petAge || "Unknown"}
               </Typography>
             </Box>
           </Paper>
-          <Paper elevation={3} sx={{ p: 2, mt: 2, bgcolor: 'cream', color: 'primary' }}>
+          <Paper
+            elevation={3}
+            sx={{ p: 2, mt: 2, bgcolor: "cream", color: "primary" }}
+          >
             <Typography variant="h5" gutterBottom>
               Your Location
             </Typography>
-            <div style={{ height: '300px' }}>
+            <div style={{ height: "300px" }}>
               {location ? (
-                <MapContainer center={location} zoom={13} style={{ height: '100%', width: '100%' }}>
+                <MapContainer
+                  center={location}
+                  zoom={13}
+                  style={{ height: "100%", width: "100%" }}
+                >
                   <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   />
                   <Marker position={location}>
-                    <Popup>
-                      You are here.
-                    </Popup>
+                    <Popup>You are here.</Popup>
                   </Marker>
                 </MapContainer>
               ) : (
@@ -259,12 +304,17 @@ const UserDashboard = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={7}>
-          <Paper elevation={3} sx={{ p: 2, bgcolor: 'cream', color: 'primary' }}>
-            <MedicalServicesIcon sx={{ fontSize: 40, mb: 1, color: 'tertiary.main' }} />
+          <Paper
+            elevation={3}
+            sx={{ p: 2, bgcolor: "cream", color: "primary" }}
+          >
+            <MedicalServicesIcon
+              sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
+            />
             <Typography variant="h5" gutterBottom>
               Vaccination Timeline
             </Typography>
-            <Timeline sx={{ flexDirection: 'row', overflowX: 'auto' }}>
+            <Timeline sx={{ flexDirection: "row", overflowX: "auto" }}>
               {vaccinations.map((vaccination) => (
                 <TimelineItem key={vaccination.id}>
                   <TimelineOppositeContent color="textSecondary">
@@ -286,8 +336,13 @@ const UserDashboard = () => {
               ))}
             </Timeline>
           </Paper>
-          <Paper elevation={3} sx={{ p: 2, mt: 2, bgcolor: 'cream', color: 'primary' }}>
-            <CalendarTodayIcon sx={{ fontSize: 40, mb: 1, color: 'tertiary.main' }} />
+          <Paper
+            elevation={3}
+            sx={{ p: 2, mt: 2, bgcolor: "cream", color: "primary" }}
+          >
+            <CalendarTodayIcon
+              sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
+            />
             <Typography variant="h5" gutterBottom>
               Appointment Calendar
             </Typography>
@@ -304,7 +359,8 @@ const UserDashboard = () => {
       {nextAppointment && (
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="info">
-            Your next appointment is on {nextAppointment.date} at {nextAppointment.time} with {nextAppointment.vetName}.
+            Your next appointment is on {nextAppointment.date} at{" "}
+            {nextAppointment.time} with {nextAppointment.vetName}.
           </Alert>
         </Snackbar>
       )}
