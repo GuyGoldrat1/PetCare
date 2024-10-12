@@ -1,9 +1,7 @@
   import { createContext, useContext, useEffect, useState } from 'react';
   import { useNavigate } from 'react-router-dom';
   import { auth, provider, db, storage } from '../firebaseConfig';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut } from 'firebase/auth';
-  import { onAuthStateChanged } from "firebase/auth";
-
+  import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signInWithPopup, signOut as firebaseSignOut, setPersistence, browserLocalPersistence } from 'firebase/auth';
   import { doc, setDoc, getDoc, addDoc, collection } from 'firebase/firestore';
   import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -17,6 +15,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithP
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     
+
+    setPersistence(auth, browserLocalPersistence);
 
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(async (user) => {

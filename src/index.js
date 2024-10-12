@@ -43,7 +43,7 @@ const Root = () => {
 ReactDOM.render(<Root />, document.getElementById('root'));
 
 window.onload = () => {
-  localStorage.clear();
+  //localStorage.clear();
   sessionStorage.clear();
   document.cookie.split(";").forEach((c) => {
     document.cookie = c
