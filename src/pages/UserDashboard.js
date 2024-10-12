@@ -1,7 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Avatar, Grid, Paper, Snackbar, Button } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Avatar,
+  Grid,
+  Paper,
+  Snackbar,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { useAuth } from '../context/AuthContext';
-import { doc, getDoc, collection, query, where, getDocs  } from 'firebase/firestore';
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import PetsIcon from '@mui/icons-material/Pets';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -42,52 +64,68 @@ const UserDashboard = () => {
   const [vaccinations, setVaccinations] = useState([]);
   const [nextAppointment, setNextAppointment] = useState(null);
   const [open, setOpen] = useState(false);
-  const [location, setLocation] = useState(null);
-
-
+  const [dialogOpen, setDialogOpen] = useState(false); // Track if the dialog is open
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null); // Track the appointment to delete
 
   useEffect(() => {
     const fetchPetInfo = async () => {
       if (currentUser) {
-        const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
         if (userDoc.exists()) {
           setPetInfo(userDoc.data());
         } else {
-          console.error('No such document!');
+          console.error("No such document!");
         }
       }
     };
 
     const fetchAvailableAppointments = async () => {
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date().toISOString().split("T")[0];
       console.error("today", today);
       try {
-        const q = query(collection(db, 'availableAppointments'),
-          where('clientId', '==', currentUser.uid)
+        const q = query(
+          collection(db, "availableAppointments"),
+          where("clientId", "==", currentUser.uid)
         );
         const querySnapshot = await getDocs(q);
-        const appointments = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const appointments = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         if (appointments.length > 0) {
           const sortedAppointments = appointments.sort(
-            (a, b) => new Date(a.date) - new Date(b.date)
+            (a, b) => new Date(b.date) - new Date(a.date)
           );
-                setAvailableAppointments(sortedAppointments);
-
+          const futureAppointments = sortedAppointments.filter(
+            (appointment) => {
+              const appointmentDate = new Date(
+                `${appointment.date}T${appointment.time}`
+              );
+              return appointmentDate >= new Date(); // Check if the appointment date is in the future
+            }
+          );
+          setAvailableAppointments(futureAppointments);
         }
       } catch (error) {
-        console.error('Error fetching appointments:', error);
+        console.error("Error fetching appointments:", error);
       }
     };
 
     const fetchMedicalRecords = async () => {
       if (currentUser) {
         try {
-          const q = query(collection(db, 'medicalRecords'), where('clientId', '==', currentUser.uid));
+          const q = query(
+            collection(db, "medicalRecords"),
+            where("clientId", "==", currentUser.uid)
+          );
           const querySnapshot = await getDocs(q);
-          const recordsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const recordsList = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
           setMedicalRecords(recordsList);
         } catch (error) {
-          console.error('Error fetching medical records:', error);
+          console.error("Error fetching medical records:", error);
         }
       }
     };
@@ -95,55 +133,68 @@ const UserDashboard = () => {
     const fetchVaccinations = async () => {
       if (currentUser) {
         const q = query(
-          collection(db, 'medicalRecords'),
-          where('clientId', '==', currentUser.uid),
-          where('treatmentType', '==', 'Vaccination')
+          collection(db, "medicalRecords"),
+          where("clientId", "==", currentUser.uid),
+          where("treatmentType", "==", "Vaccination")
         );
         const querySnapshot = await getDocs(q);
-        const vaccinationsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const vaccinationsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setVaccinations(vaccinationsList);
       }
     };
 
-    const fetchLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation([latitude, longitude]);
-        },
-        (error) => {
-          console.error('Error fetching location:', error);
-        }
-      );
-    };
 
     fetchPetInfo();
     fetchAvailableAppointments();
     fetchMedicalRecords();
     fetchVaccinations();
-    fetchLocation();
   }, [currentUser]);
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
-    const handleDelete = (id) => {
-    // Add logic to delete the appointment by id from Firestore
-    console.log('Deleting appointment with id:', id);
+
+  const handleDelete = async () => {
+    try {
+      // Optionally, mark the appointment as available again (if required)
+      await updateDoc(doc(db, "availableAppointments", selectedAppointmentId), {
+        clientId: null, // Mark it as available by setting clientId to null
+        booked: false,
+      });
+
+      // Fetch updated appointments after deletion
+      const updatedAppointments = availableAppointments.filter(
+        (appointment) => appointment.id !== selectedAppointmentId
+      );
+      setAvailableAppointments(updatedAppointments);
+      setDialogOpen(false); // Close the dialog after deleting
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+    }
   };
 
-    const events = availableAppointments.map(appointment => ({
+  const openDeleteDialog = (id) => {
+    setSelectedAppointmentId(id);
+    setDialogOpen(true); // Open confirmation dialog
+  };
+
+  const closeDeleteDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const events = availableAppointments.map((appointment) => ({
     title: `${appointment.vetName} 
     at: ${appointment.time}`,
     start: new Date(`${appointment.date}T${appointment.time}`),
     end: new Date(`${appointment.date}T${appointment.time}`),
     id: appointment.id,
-    })
-    
-    );
+  }));
 
   return (
     <Box sx={{ p: 3 }}>
@@ -156,14 +207,11 @@ const UserDashboard = () => {
         Welcome to your Dashboard!
       </Typography>
       <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <Paper
-            elevation={3}
             sx={{
               p: 2,
-              bgcolor: "cream",
-              color: "primary",
-              borderRadius: "20px",
+              height: 250,
             }}
           >
             <PetsIcon sx={{ fontSize: 40, mb: 2, color: "tertiary.main" }} />
@@ -191,26 +239,21 @@ const UserDashboard = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Paper sx={{ p: 2 }}>
+          <Paper sx={{ p: 2, height: 250 }}>
             <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
               Upcoming Events
             </Typography>
 
-            <Paper sx={{ overflowY: "auto", p: 2,mt:2 }}>
+            <Paper sx={{ overflowY: "auto", p: 2, mt: 2 }}>
               <AppointmentsDataGrid
                 availableAppointments={availableAppointments}
-                handleDelete={handleDelete}
+                handleDelete={openDeleteDialog}
               />
             </Paper>
           </Paper>
         </Grid>
-      </Grid>
-      <Grid container spacing={2} sx={{ mt: 4 }}>
-        <Grid item xs={12} md={5}>
-          <Paper
-            elevation={3}
-            sx={{ p: 2, bgcolor: "cream", color: "primary" }}
-          >
+        <Grid item xs={12} md={4}>
+          <Paper  sx={{ p: 2, height: 300 }}>
             <MedicalServicesIcon
               sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
             />
@@ -242,72 +285,9 @@ const UserDashboard = () => {
               ))}
             </Carousel>
           </Paper>
-          <Paper
-            elevation={3}
-            sx={{
-              p: 2,
-              mt: 2,
-              textAlign: "center",
-              bgcolor: "cream",
-              color: "primary",
-            }}
-          >
-            <Typography variant="h5">Age</Typography>
-            <Box
-              sx={{
-                width: 100,
-                height: 100,
-                borderRadius: "50%",
-                border: "5px solid",
-                borderColor: "primary.main",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                mx: "auto",
-                mt: 1,
-              }}
-            >
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: "bold", color: "primary" }}
-              >
-                {petInfo.petAge || "Unknown"}
-              </Typography>
-            </Box>
-          </Paper>
-          <Paper
-            elevation={3}
-            sx={{ p: 2, mt: 2, bgcolor: "cream", color: "primary" }}
-          >
-            <Typography variant="h5" gutterBottom>
-              Your Location
-            </Typography>
-            <div style={{ height: "300px" }}>
-              {location ? (
-                <MapContainer
-                  center={location}
-                  zoom={13}
-                  style={{ height: "100%", width: "100%" }}
-                >
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  />
-                  <Marker position={location}>
-                    <Popup>You are here.</Popup>
-                  </Marker>
-                </MapContainer>
-              ) : (
-                <Typography>Loading map...</Typography>
-              )}
-            </div>
-          </Paper>
         </Grid>
-        <Grid item xs={12} md={7}>
-          <Paper
-            elevation={3}
-            sx={{ p: 2, bgcolor: "cream", color: "primary" }}
-          >
+        <Grid item xs={12} md={6}>
+          <Paper  sx={{ p: 2, height: 300 }}>
             <MedicalServicesIcon
               sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
             />
@@ -336,24 +316,6 @@ const UserDashboard = () => {
               ))}
             </Timeline>
           </Paper>
-          <Paper
-            elevation={3}
-            sx={{ p: 2, mt: 2, bgcolor: "cream", color: "primary" }}
-          >
-            <CalendarTodayIcon
-              sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
-            />
-            <Typography variant="h5" gutterBottom>
-              Appointment Calendar
-            </Typography>
-            <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500 }}
-            />
-          </Paper>
         </Grid>
       </Grid>
       {nextAppointment && (
@@ -364,6 +326,32 @@ const UserDashboard = () => {
           </Alert>
         </Snackbar>
       )}
+
+      {/* Delete confirmation dialog */}
+      <Dialog
+        open={dialogOpen}
+        onClose={closeDeleteDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete Appointment"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this appointment? This action cannot
+            be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="secondary" autoFocus>
+            Yes, Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

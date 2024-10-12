@@ -5,19 +5,19 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 const AppointmentsList = ({ availableAppointments, handleDelete }) => {
   return (
-    <Box sx={{ height: 200 }}>
+    <Box sx={{ height: 150 }}>
       {availableAppointments.length > 0 ? (
         availableAppointments.map((appointment) => (
           <Paper
             key={appointment.id}
+            elevation={3}
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
               p: 2,
               mb: 2,
-              bgcolor: "secondary.main",
-              color: "secondary.contrastText",
+              bgcolor: "primary.main",
             }}
           >
             <Box>

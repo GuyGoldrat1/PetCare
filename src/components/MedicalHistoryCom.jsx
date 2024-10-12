@@ -35,8 +35,15 @@ const MedicalHistoryComponent = ({ currentUser }) => {
           id: doc.id,
           ...doc.data(),
         }));
-        setMedicalRecords(records);
-        setFilteredRecords(records);
+          if (records.length > 0) {
+            const sortedRecords = records.sort(
+                (a, b) => new Date(b.date) - new Date(a.date)
+              );
+              setMedicalRecords(sortedRecords);
+              setFilteredRecords(sortedRecords);
+          }
+
+        
       }
     };
 
@@ -100,24 +107,38 @@ const MedicalHistoryComponent = ({ currentUser }) => {
             <ListItem key={record.id}>
               <Card sx={{ width: "100%" }}>
                 <CardContent>
-                  <Typography variant="h6">{record.summary}</Typography>
-                  <Typography variant="body2">Date: {record.date}</Typography>
-                  <Typography variant="body2">Vet: {record.vetName}</Typography>
-                  {record.pdfUrl && (
-                    <Link
-                      href={record.pdfUrl}
-                      target="_blank"
-                      rel="noopener"
-                      sx={{ display: "flex", alignItems: "center", mt: 2 }}
-                    >
-                      <PictureAsPdfIcon
-                        sx={{ fontSize: 40, color: "primary.main", mr: 1 }}
-                      />
-                      <Typography variant="body1" color="primary">
-                        View PDF
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Typography variant="h6">{record.summary}</Typography>
+                      <Typography variant="body2">
+                        Date: {record.date}
                       </Typography>
-                    </Link>
-                  )}
+                      <Typography variant="body2">
+                        Vet: {record.vetName}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ mr: 1}}>
+                      {record.pdfUrl && (
+                        <Link
+                          href={record.pdfUrl}
+                          target="_blank"
+                          rel="noopener"
+                          sx={{ display: "flex", alignItems: "center", mt: 2 }}
+                        >
+                          <PictureAsPdfIcon
+                            sx={{ fontSize: 40, color: "primary.main", mr: 1 }}
+                          />
+                          <Typography variant="body1" color="primary">
+                            View PDF
+                          </Typography>
+                        </Link>
+                      )}
+                    </Box>
+                  </Box>
                 </CardContent>
               </Card>
             </ListItem>
