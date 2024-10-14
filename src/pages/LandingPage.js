@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Button, Box, Typography, Container, Paper, Grid } from "@mui/material";
+import {
+  Button,
+  Box,
+  Typography,
+  Container,
+  Paper,
+  Grid,
+} from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import PetCareLogo from "../assets/petcare-logo.png"; // Make sure to import your logo
 import VetImage from "../assets/vet-image.png"; // Replace with your vet image path
 import DogImage from "../assets/dog-image.png"; // Replace with your dog image path
+import ArrowForward from "@mui/icons-material/ArrowForward";
+
 
 const GoogleButton = styled(Button)({
   backgroundColor: "#4285F4",
@@ -127,20 +136,32 @@ const LandingPage = () => {
                   your pet's health and wellbeing.
                 </Typography>
                 <Box sx={{ width: "100%" }}>
-                  <GoogleButton
-                    variant="contained"
-                    startIcon={
-                      <img
-                        src="https://img.icons8.com/color/16/000000/google-logo.png"
-                        alt="Google logo"
-                      />
-                    }
-                    onClick={googlelogin}
-                    fullWidth
-                    sx={{ marginBottom: "20px" }}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      position: "relative",
+                    }}
                   >
-                    Sign in with Google
-                  </GoogleButton>
+                    <GoogleButton
+                      variant="contained"
+                      component={Link}
+                      fullWidth
+                      endDecorator={<ArrowForward fontSize="xl" />}
+                      to={{ pathname: "/sign-up", search: "?role=vet" }}
+                      sx={{
+                        backgroundColor: "#4285F4",
+                        color: "white",
+                        "&:hover": { backgroundColor: "#357ae8" },
+                        marginBottom: "20px",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Get Started
+                    </GoogleButton>
+                  </Box>
+                  <Typography>Already a member? </Typography>
+
                   <Box
                     sx={{
                       display: "flex",
@@ -154,64 +175,19 @@ const LandingPage = () => {
                       fullWidth
                       to={{ pathname: "/login", search: "?role=pet-owner" }}
                       sx={{
+                        mt: 3,
                         marginBottom: "20px",
                         right: "0",
                         backgroundColor: "#4285F4",
                         color: "white",
                         "&:hover": { backgroundColor: "#357ae8" },
+                        fontSize: "16px",
+                        textTransform: "none",
                       }}
                     >
-                      Sign In with password
+                      Sign In
                     </GoogleButton>
                   </Box>
-                  <Typography
-                    variant="body2"
-                    align="center"
-                    sx={{ marginBottom: "20px" }}
-                  >
-                    or
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      position: "relative",
-                    }}
-                  >
-                    <SignUpButton
-                      variant="contained"
-                      component={Link}
-                      to={{ pathname: "/sign-up", search: "?role=vet" }}
-                      sx={{
-                        left: "0",
-                        backgroundColor: "#4285F4",
-                        color: "white",
-                        "&:hover": { backgroundColor: "#357ae8" },
-                      }}
-                    >
-                      Sign Up as Vet
-                    </SignUpButton>
-                    <SignUpButton
-                      variant="contained"
-                      component={Link}
-                      to={{ pathname: "/sign-up", search: "?role=pet-owner" }}
-                      sx={{
-                        right: "0",
-                        backgroundColor: "#4285F4",
-                        color: "white",
-                        "&:hover": { backgroundColor: "#357ae8" },
-                      }}
-                    >
-                      Sign Up as Pet Owner
-                    </SignUpButton>
-                  </Box>
-                  <Typography
-                    variant="body2"
-                    align="center"
-                    sx={{ marginBottom: "50px" }}
-                  >
-                    or
-                  </Typography>
                 </Box>
               </Box>
             </StyledPaper>
@@ -230,4 +206,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-  
