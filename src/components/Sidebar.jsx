@@ -106,19 +106,19 @@ const Sidebar = () => {
           ) : (
             <>
               <ListItem button component={Link} to="/vet-dashboard">
-                <ListItemIcon sx={{ color: "text.secondary" }}>
+                <ListItemIcon sx={{ color: "background.paper" }}>
                   <Dashboard />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
               <ListItem button component={Link} to="/vet-appointments">
-                <ListItemIcon sx={{ color: "text.secondary" }}>
+                <ListItemIcon sx={{ color: "background.paper" }}>
                   <Event />
                 </ListItemIcon>
                 <ListItemText primary="Appointments" />
               </ListItem>
               <ListItem button component={Link} to="/vet-patients">
-                <ListItemIcon sx={{ color: "text.secondary" }}>
+                <ListItemIcon sx={{ color: "background.paper" }}>
                   <LocalHospital />
                 </ListItemIcon>
                 <ListItemText primary="Patients" />

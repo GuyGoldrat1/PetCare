@@ -214,10 +214,23 @@ const UserDashboard = () => {
               height: 250,
             }}
           >
-            <PetsIcon sx={{ fontSize: 40, mb: 2, color: "tertiary.main" }} />
-            <Typography variant="h5" gutterBottom>
-              Pet Info
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <PetsIcon sx={{ fontSize: 40, mb: 2, color: "tertiary.main" }} />
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{ ml: 2, fontWeight: "bold" }}
+              >
+                Pet Info
+              </Typography>
+            </Box>
             <Typography variant="body1">
               <strong>Age:</strong> {petInfo.petAge || "Unknown"}
             </Typography>
@@ -253,13 +266,26 @@ const UserDashboard = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Paper  sx={{ p: 2, height: 300 }}>
-            <MedicalServicesIcon
-              sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
-            />
-            <Typography variant="h5" gutterBottom>
-              Medical Bag
-            </Typography>
+          <Paper sx={{ p: 2, height: 300 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <MedicalServicesIcon
+                sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
+              />
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{ ml: 2, fontWeight: "bold" }}
+              >
+                Medical History
+              </Typography>
+            </Box>
             <Carousel>
               {medicalRecords.map((record) => (
                 <Paper
@@ -287,13 +313,26 @@ const UserDashboard = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper  sx={{ p: 2, height: 300 }}>
-            <MedicalServicesIcon
-              sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
-            />
-            <Typography variant="h5" gutterBottom>
-              Vaccination Timeline
-            </Typography>
+          <Paper sx={{ p: 2, height: 300 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <MedicalServicesIcon
+                sx={{ fontSize: 40, mb: 1, color: "tertiary.main" }}
+              />
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{ ml: 2, fontWeight: "bold" }}
+              >
+                Vaccination Timeline
+              </Typography>
+            </Box>
             <Timeline sx={{ flexDirection: "row", overflowX: "auto" }}>
               {vaccinations.map((vaccination) => (
                 <TimelineItem key={vaccination.id}>
