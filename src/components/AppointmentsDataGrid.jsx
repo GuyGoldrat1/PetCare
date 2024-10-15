@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, IconButton, Typography, Paper } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 const AppointmentsList = ({ availableAppointments, handleDelete }) => {
   return (

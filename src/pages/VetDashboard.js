@@ -45,8 +45,9 @@ const VetDashboard = () => {
     const fetchAppointments = async () => {
       if (currentUser) {
         const q = query(
-          collection(db, "appointments"),
-          where("vetId", "==", currentUser.uid)
+          collection(db, "availableAppointments"),
+          where("vetId", "==", currentUser.uid),
+          where("booked", "==", true)
         );
         const querySnapshot = await getDocs(q);
         const appointments = querySnapshot.docs.map((doc) => ({
