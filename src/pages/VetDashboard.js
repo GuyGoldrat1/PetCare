@@ -63,13 +63,30 @@ const VetDashboard = () => {
           (a, b) =>
             new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`)
         );
+        const updatedUpcoming = await Promise.all(
+          upcoming.map(async (app) => {
+            let clientEmail = "Unknown"; // Default value
+            if (app.clientId) {
+              // Fetch corresponding client document from "users" collection
+              const clientDoc = await getDoc(doc(db, "users", app.clientId));
+              if (clientDoc.exists()) {
+                clientEmail = clientDoc.data().email; // Get the email from client doc
+              }
+            }
+            return {
+              ...app,
+              clientEmail, // Add the clientEmail to the appointment object
+              status: clientEmail, // Any other computed field
+            };
+          })
+        );
 
         // Set next appointment and all upcoming appointments
-        setNextAppointment(upcoming[0]);
-        setUpcomingAppointments(upcoming);
+        setNextAppointment(updatedUpcoming[0]);
+        setUpcomingAppointments(updatedUpcoming);
 
         const events = upcoming.map((app) => ({
-          title: `Client: ${app.clientEmail}`,
+          title: `Client: ${app.clientId}`,
           start: new Date(`${app.date}T${app.time}`),
           end: new Date(`${app.date}T${app.time}`),
         }));
@@ -143,9 +160,8 @@ const VetDashboard = () => {
                   {nextAppointment ? (
                     <Paper sx={{ bgcolor: "primary.main", p: 2 }}>
                       <Typography>
-                        Date: {nextAppointment.date}, Time:{" "}
-                        {nextAppointment.time}
-                        Client: {nextAppointment.clientEmail}
+                        {nextAppointment.date}, Time:{" "}
+                        {nextAppointment.time}, Client: {nextAppointment.clientEmail}
                       </Typography>
                     </Paper>
                   ) : (
@@ -170,9 +186,7 @@ const VetDashboard = () => {
                         bgcolor: "primary.main",
                       }}
                     >
-                      <Typography>
-                        Client: {appointment.clientEmail}
-                      </Typography>
+                      <Typography>Client: {appointment.clientEmail}</Typography>
                       <Typography>
                         {appointment.date}, Time: {appointment.time}
                       </Typography>
