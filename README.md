@@ -1,6 +1,12 @@
 # PetCare
+## [Visit PetCare Application](https://petcare-c5849.web.app/)
 
 PetCare is a web application dedicated to providing the best possible care for your pets by connecting you with trusted veterinarians. The platform allows you to manage your pet's medical history, book appointments, and access vital information about your pet's health and wellbeing.
+
+## Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/E9CtwxKVWwQ/maxresdefault.jpg)](https://youtu.be/E9CtwxKVWwQ)
+
 
 ## Table of Contents
 
@@ -31,7 +37,7 @@ PetCare is a web application dedicated to providing the best possible care for y
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/PetCare.git
-git init
-git install
+npm init
+npm install
 cd PetCare
-git start
+npm start
